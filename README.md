@@ -167,3 +167,6 @@ Per supporto o domande:
 ---
 
 **Nota**: Questo progetto è ottimizzato per Vercel e si deploierà automaticamente senza configurazioni aggiuntive.
+=======
+# WebNovis
+>>>>>>> 78bd6bab575483dfee5fdcb6004170440024263d
