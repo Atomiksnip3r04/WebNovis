@@ -106,7 +106,7 @@ export default function Home() {
               <div className="text-lg opacity-80">Progetti Realizzati</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold mb-2">24h</div>
+              <div className="text-4xl font-bold mb-2">meno di 24h</div>
               <div className="text-lg opacity-80">Tempo di Risposta</div>
             </div>
             <div className="flex flex-col items-center">
@@ -127,7 +127,7 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
               Servizi che <span className="gradient-text">Trasformano</span> il Tuo Business
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -581,7 +581,7 @@ export default function Home() {
                   <div>
                     <div className="font-semibold">Email</div>
                     <a href="mailto:massimilianociconte9@gmail.com" className="text-gray-300 hover:text-white">massimilianociconte9@gmail.com</a>
-                    <div className="text-sm text-gray-400">Rispondiamo in 24h</div>
+                    <div className="text-sm text-gray-400">Rispondiamo in meno di 24h</div>
                   </div>
                 </div>
                 
