@@ -102,11 +102,11 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold mb-2">100+</div>
-              <div className="text-lg opacity-80">Progetti Realizzati</div>
+              <div className="text-4xl font-bold mb-2">Focus</div>
+              <div className="text-lg opacity-80">sul Risultato</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="text-4xl font-bold mb-2">meno di 24h</div>
+              <div className="text-4xl font-bold mb-2">Meno di 24h</div>
               <div className="text-lg opacity-80">Tempo di Risposta</div>
             </div>
             <div className="flex flex-col items-center">
