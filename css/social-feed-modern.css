@@ -22,7 +22,7 @@
 .avatar-gradient {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+    background: linear-gradient(135deg, #b8860b 0%, #8b1538 100%);
     animation: avatarRotate 8s linear infinite;
 }
 
@@ -58,16 +58,16 @@
 }
 
 .content-hashtag {
-    color: #818cf8;
+    color: #daa520;
     font-weight: 500;
 }
 
 .content-media {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+    background: linear-gradient(135deg, rgba(184, 134, 11, 0.1), rgba(139, 21, 56, 0.1));
     border-radius: 12px;
     padding: 24px;
     text-align: center;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(184, 134, 11, 0.2);
 }
 
 .media-icon {
@@ -104,7 +104,7 @@
 }
 
 .feed-stats span:hover {
-    color: #818cf8;
+    color: #daa520;
     cursor: pointer;
 }
 

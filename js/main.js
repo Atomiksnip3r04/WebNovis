@@ -194,7 +194,7 @@ class Particle {
     }
 
     draw() {
-        ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+        ctx.fillStyle = `rgba(184, 134, 11, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -222,7 +222,7 @@ function animateParticles() {
             const distance = Math.sqrt(dx * dx + dy * dy);
 
             if (distance < 100) {
-                ctx.strokeStyle = `rgba(99, 102, 241, ${0.2 * (1 - distance / 100)})`;
+                ctx.strokeStyle = `rgba(184, 134, 11, ${0.2 * (1 - distance / 100)})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(particles[i].x, particles[i].y);
@@ -325,7 +325,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Effetto Ripple sui Click
+// Effetto Ripple sui Click - Oro/Bordeaux
 document.addEventListener('click', (e) => {
     const ripple = document.createElement('div');
     ripple.style.cssText = `
@@ -333,7 +333,7 @@ document.addEventListener('click', (e) => {
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.6) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(184, 134, 11, 0.6) 0%, rgba(139, 21, 56, 0.3) 50%, transparent 70%);
         pointer-events: none;
         z-index: 9999;
         left: ${e.clientX}px;
@@ -741,7 +741,7 @@ if (contactForm) {
         
         input.addEventListener('input', function() {
             if (this.value.trim() !== '') {
-                this.style.borderColor = 'rgba(99, 102, 241, 0.5)';
+                this.style.borderColor = 'rgba(184, 134, 11, 0.5)';
             }
         });
     });
