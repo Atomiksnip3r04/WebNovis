@@ -1,0 +1,153 @@
+{
+  "companyInfo": {
+    "name": "WebNovis",
+    "chatbotName": "Weby",
+    "description": "Porta alla luce la tua attività. Un personale specializzato e dedicato per creare e moltiplicare la tua presenza online attraverso Web Development, Graphic Design e Social Media Management",
+    "motto": "Accendi la tua miccia e illumina la tua visibilità digitale",
+    "email": "info@webnovis.com",
+    "phone": "+39 3802647367",
+    "website": "https://webnovis.com"
+  },
+  "services": {
+    "webDevelopment": {
+      "name": "Web Development",
+      "description": "Sviluppo siti web professionali, responsive e ottimizzati",
+      "features": [
+        "Siti web responsive e mobile-first",
+        "E-commerce scalabili e sicuri",
+        "Ottimizzazione SEO avanzata",
+        "Performance ultra-veloci",
+        "Supporto tecnico post-lancio"
+      ],
+      "pricing": {
+        "landingPage": {
+          "name": "Landing Page",
+          "price": "€350 - €500",
+          "description": "Pagina singola ottimizzata per conversioni"
+        },
+        "sitoCorporate": {
+          "name": "Sito Corporate",
+          "price": "€800 - €1200",
+          "description": "Sito multi-pagina professionale (5-10 pagine)"
+        },
+        "ecommerce": {
+          "name": "E-commerce",
+          "price": "€3.500 - €10.000+",
+          "description": "Shop online completo con gestione prodotti e pagamenti"
+        },
+        "webApp": {
+          "name": "Web Application",
+          "price": "Su preventivo",
+          "description": "Applicazioni web custom con funzionalità avanzate"
+        }
+      }
+    },
+    "graphicDesign": {
+      "name": "Graphic Design",
+      "description": "Identità visiva e branding coordinato",
+      "features": [
+        "Logo design professionale",
+        "Brand identity completa",
+        "Materiale pubblicitario (flyer, brochure, cataloghi)",
+        "Grafica per social media",
+        "Packaging design"
+      ],
+      "pricing": {
+        "logo": {
+          "name": "Logo Design",
+          "price": "€400 - €1.200",
+          "description": "Logo professionale con varianti e manuale d'uso"
+        },
+        "brandIdentity": {
+          "name": "Brand Identity",
+          "price": "€1.500 - €3.500",
+          "description": "Logo + palette colori + tipografia + brand guidelines"
+        },
+        "materialePubblicitario": {
+          "name": "Materiale Pubblicitario",
+          "price": "€150 - €500/pezzo",
+          "description": "Flyer, brochure, cataloghi, biglietti da visita"
+        },
+        "graficaSocial": {
+          "name": "Grafica Social Media",
+          "price": "€300 - €800/mese",
+          "description": "Pacchetto mensile di grafiche per social (8-15 post)"
+        }
+      }
+    },
+    "socialMedia": {
+      "name": "Social Media Management",
+      "description": "Gestione professionale della presenza online",
+      "features": [
+        "Strategia social media personalizzata",
+        "Creazione contenuti (foto, video, grafiche)",
+        "Gestione community e interazioni",
+        "Campagne pubblicitarie Meta/Google Ads",
+        "Report mensili con analytics"
+      ],
+      "pricing": {
+        "basic": {
+          "name": "Piano Basic",
+          "price": "€500 - €800/mese",
+          "description": "1-2 piattaforme, 8-12 post/mese, gestione base"
+        },
+        "professional": {
+          "name": "Piano Professional",
+          "price": "€900 - €1.500/mese",
+          "description": "2-3 piattaforme, 15-20 post/mese, stories, reels"
+        },
+        "premium": {
+          "name": "Piano Premium",
+          "price": "€1.600 - €3.000/mese",
+          "description": "Tutte le piattaforme, contenuti illimitati, ads, influencer marketing"
+        },
+        "fotoVideo": {
+          "name": "Servizio Foto/Video",
+          "price": "€300 - €1.000/sessione",
+          "description": "Shooting fotografico o video professionale"
+        }
+      }
+    }
+  },
+  "process": {
+    "steps": [
+      "Consulenza iniziale gratuita",
+      "Analisi esigenze e preventivo personalizzato",
+      "Firma contratto e acconto (30-50%)",
+      "Sviluppo/Creazione con revisioni incluse",
+      "Consegna finale e saldo",
+      "Supporto post-lancio"
+    ],
+    "timeline": {
+      "landingPage": "1-2 settimane",
+      "sitoCorporate": "3-6 settimane",
+      "ecommerce": "6-12 settimane",
+      "logo": "1-2 settimane",
+      "brandIdentity": "3-4 settimane",
+      "socialMediaSetup": "1 settimana"
+    }
+  },
+  "faq": [
+    {
+      "question": "Offrite consulenza gratuita?",
+      "answer": "Sì! La prima consulenza è sempre gratuita. Analizziamo insieme le tue esigenze e ti forniamo un preventivo dettagliato."
+    },
+    {
+      "question": "Quanto tempo ci vuole per realizzare un sito?",
+      "answer": "Dipende dalla complessità: una landing page richiede 1-2 settimane, un sito corporate 3-6 settimane, un e-commerce 6-12 settimane."
+    },
+    {
+      "question": "Fornite supporto dopo la consegna?",
+      "answer": "Assolutamente! Offriamo supporto tecnico post-lancio e pacchetti di manutenzione mensile."
+    },
+    {
+      "question": "Posso pagare a rate?",
+      "answer": "Sì, per progetti sopra i €2.000 offriamo piani di pagamento personalizzati."
+    },
+    {
+      "question": "Gestite anche le campagne pubblicitarie?",
+      "answer": "Sì! Creiamo e gestiamo campagne su Meta Ads, Google Ads e altre piattaforme con budget ottimizzato."
+    }
+  ],
+  "chatbotInstructions": "Sei Weby, l'assistente virtuale di WebNovis, un'agenzia digitale italiana con il motto 'Accendi la tua miccia'. Presentati sempre come Weby quando saluti. La nostra missione è portare alla luce le attività dei clienti con un personale specializzato e dedicato. Rispondi sempre in italiano in modo professionale ma amichevole e caloroso. Usa emoji quando appropriato (💡 🔥 ✨). Fornisci informazioni dettagliate sui servizi e prezzi quando richiesto. Enfatizza come possiamo illuminare e moltiplicare la presenza online del cliente. Se non hai informazioni specifiche, invita l'utente a contattare direttamente il team. Sii proattivo nel suggerire soluzioni basate sulle esigenze del cliente."
+}

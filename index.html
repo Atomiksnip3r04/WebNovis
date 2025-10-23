@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebNovis — Web Agency, Grafica & Social Media</title>
+    <meta name="description"
+        content="Agenzia digitale completa: sviluppo web, grafica, branding e social media management. Creiamo esperienze digitali memorabili.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/social-feed-modern.css">
+    <link rel="stylesheet" href="css/weby-mobile-fix.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav"></nav>
+    <div class="container nav-container">
+        <a href="#" class="logo">
+            <span class="logo-web">Web</span><span class="logo-novis">Novis</span>
+        </a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#servizi" class="nav-link">Servizi</a></li>
+            <li><a href="#web" class="nav-link">Web</a></li>
+            <li><a href="#design" class="nav-link">Design</a></li>
+            <li><a href="#social" class="nav-link">Social</a></li>
+            <li><a href="#contatti" class="nav-link nav-cta">Inizia Ora</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+            <canvas id="particlesCanvas"></canvas>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>Porta alla luce la tua attività</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="gradient-text glitch" data-text="Accendi la tua miccia">Accendi la tua miccia</span><br>
+                    e illumina la tua visibilità
+                </h1>
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <div class="card-glow"></div>
+                        <span>💡 Illumina</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-glow"></div>
+                        <span>🔥 Accendi</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <div class="card-glow"></div>
+                        <span>✨ Brilla</span>
+                    </div>
+                </div>
+                <p class="hero-subtitle">
+                    Un personale specializzato e dedicato per creare<br>
+                    e moltiplicare la tua presenza online
+                </p>
+                <div class="hero-cta">
+                    <a href="#contatti" class="btn btn-primary">
+                        <span>Scopri Come</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <a href="#servizi" class="btn btn-secondary">I Nostri Servizi</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Progetti Completati</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Anime Creative</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Possibilità</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Showcase Numbers -->
+    <section class="showcase-numbers">
+        <div class="container">
+            <div class="numbers-grid">
+                <div class="number-item" data-count="250">
+                    <div class="number-value">0</div>
+                    <div class="number-label">Clienti Soddisfatti</div>
+                    <div class="number-glow"></div>
+                </div>
+                <div class="number-item" data-count="500">
+                    <div class="number-value">0</div>
+                    <div class="number-label">Progetti Consegnati</div>
+                    <div class="number-glow"></div>
+                </div>
+                <div class="number-item" data-count="98">
+                    <div class="number-value">0</div>
+                    <div class="number-label">% Soddisfazione</div>
+                    <div class="number-glow"></div>
+                </div>
+                <div class="number-item" data-count="24">
+                    <div class="number-value">0</div>
+                    <div class="number-label">Ore Supporto</div>
+                    <div class="number-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Triade Section -->
+    <section class="triade" id="servizi">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">La Nostra Filosofia</span>
+                <h2 class="section-title">Tre Anime, Un Ecosistema</h2>
+                <p class="section-subtitle">
+                    Web, Design e Social cooperano in armonia per creare soluzioni digitali complete, coordinate e
+                    performanti
+                </p>
+            </div>
+            <div class="triade-grid">
+                <div class="triade-card magnetic" data-anime="web">
+                    <div class="card-shine"></div>
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="6" y="10" width="36" height="28" rx="3" stroke="currentColor" stroke-width="2" />
+                            <path d="M6 18H42" stroke="currentColor" stroke-width="2" />
+                            <circle cx="12" cy="14" r="1.5" fill="currentColor" />
+                            <circle cx="17" cy="14" r="1.5" fill="currentColor" />
+                            <circle cx="22" cy="14" r="1.5" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Web</h3>
+                    <p class="card-description">La struttura e la funzionalità. Siti performanti, responsive e
+                        ottimizzati.</p>
+                    <a href="#web" class="card-link">
+                        Esplora <span>→</span>
+                    </a>
+                </div>
+                <div class="triade-card magnetic" data-anime="design">
+                    <div class="card-shine"></div>
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M24 6L28 20H42L31 28L35 42L24 34L13 42L17 28L6 20H20L24 6Z" stroke="currentColor"
+                                stroke-width="2" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Design</h3>
+                    <p class="card-description">L'identità visiva. Branding coordinato che comunica personalità e
+                        valore.</p>
+                    <a href="#design" class="card-link">
+                        Esplora <span>→</span>
+                    </a>
+                </div>
+                <div class="triade-card magnetic" data-anime="social">
+                    <div class="card-shine"></div>
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2" />
+                            <path d="M24 6C24 6 30 12 30 24C30 36 24 42 24 42" stroke="currentColor" stroke-width="2" />
+                            <path d="M24 6C24 6 18 12 18 24C18 36 24 42 24 42" stroke="currentColor" stroke-width="2" />
+                            <path d="M8 24H40" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <h3 class="card-title">Social</h3>
+                    <p class="card-description">La voce del brand. Storytelling e contenuti che generano conversioni
+                        reali.</p>
+                    <a href="#social" class="card-link">
+                        Esplora <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web Section -->
+    <section class="service-section web-section" id="web">
+        <div class="container">
+            <div class="service-layout">
+                <div class="service-visual">
+                    <div class="visual-card floating-3d">
+                        <div class="holographic-overlay"></div>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <span></span><span></span><span></span>
+                                <div class="code-title">WebNovis.jsx</div>
+                            </div>
+                            <div class="code-content" id="codeContent">
+                                <div class="code-typing-area"></div>
+                                <span class="code-cursor">|</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <span class="service-tag">01 — Web Development</span>
+                    <h2 class="service-title">Sviluppo & Performance Digitale</h2>
+                    <p class="service-description">
+                        Creiamo siti web professionali che uniscono estetica e funzionalità. Ogni progetto è ottimizzato
+                        per performance, SEO e conversioni.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Design UI/UX curato nei minimi dettagli</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Ottimizzazione SEO e Performance</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>E-commerce scalabili e sicuri</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Supporto tecnico post-lancio costante</span>
+                        </li>
+                    </ul>
+                    <div class="service-process">
+                        <div class="process-item">Analisi</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-item">Design</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-item">Sviluppo</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-item">Launch</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Section -->
+    <section class="service-section design-section" id="design">
+        <div class="container">
+            <div class="service-layout reverse">
+                <div class="service-content">
+                    <span class="service-tag">02 — Graphic Design</span>
+                    <h2 class="service-title">Identità Visiva & Branding</h2>
+                    <p class="service-description">
+                        Diamo vita a identità visive coerenti e d'impatto. Ogni elemento è concepito per comunicare
+                        personalità, valore e riconoscibilità.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Logo Design e Branding coordinato</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Grafica pubblicitaria digitale e stampa</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Servizi di stampa professionale</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Progettazione visuale integrata</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="service-visual">
+                    <div class="visual-card floating-3d">
+                        <div class="holographic-overlay"></div>
+                        <div class="design-showcase">
+                            <div class="design-element element-1"></div>
+                            <div class="design-element element-2"></div>
+                            <div class="design-element element-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section class="service-section social-section" id="social">
+        <div class="container">
+            <div class="service-layout">
+                <div class="service-visual">
+                    <div class="visual-card floating-3d">
+                        <div class="holographic-overlay"></div>
+                        <div class="social-mockup">
+                            <div class="mockup-phone">
+                                <div class="phone-notch"></div>
+                                <div class="phone-screen">
+                                    <div class="social-feed-scroll" id="socialFeedScroll">
+                                        <!-- Post 1 -->
+                                        <div class="feed-post">
+                                            <div class="feed-header">
+                                                <div class="feed-avatar">
+                                                    <div class="avatar-gradient"></div>
+                                                </div>
+                                                <div class="feed-user">
+                                                    <div class="feed-username">webnovis</div>
+                                                    <div class="feed-time">2h ago</div>
+                                                </div>
+                                            </div>
+                                            <div class="feed-content">
+                                                <div class="content-text">
+                                                    New project launch 🚀<br>
+                                                    <span class="content-hashtag">#webdesign #branding</span>
+                                                </div>
+                                            </div>
+                                            <div class="feed-stats">
+                                                <span>❤️ 2.8K</span>
+                                                <span>💬 94</span>
+                                                <span>📤 47</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Post 2 -->
+                                        <div class="feed-post">
+                                            <div class="feed-header">
+                                                <div class="feed-avatar">
+                                                    <div class="avatar-gradient"></div>
+                                                </div>
+                                                <div class="feed-user">
+                                                    <div class="feed-username">webnovis</div>
+                                                    <div class="feed-time">5h ago</div>
+                                                </div>
+                                            </div>
+                                            <div class="feed-content">
+                                                <div class="content-media">
+                                                    <div class="media-icon">📸</div>
+                                                    <div class="media-label">Portfolio Update</div>
+                                                </div>
+                                            </div>
+                                            <div class="feed-stats">
+                                                <span>❤️ 3.2K</span>
+                                                <span>💬 127</span>
+                                                <span>📤 89</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Post 3 -->
+                                        <div class="feed-post">
+                                            <div class="feed-header">
+                                                <div class="feed-avatar">
+                                                    <div class="avatar-gradient"></div>
+                                                </div>
+                                                <div class="feed-user">
+                                                    <div class="feed-username">webnovis</div>
+                                                    <div class="feed-time">1d ago</div>
+                                                </div>
+                                            </div>
+                                            <div class="feed-content">
+                                                <div class="content-text">
+                                                    Behind the scenes ✨<br>
+                                                    <span class="content-hashtag">#creative #design</span>
+                                                </div>
+                                            </div>
+                                            <div class="feed-stats">
+                                                <span>❤️ 1.9K</span>
+                                                <span>💬 56</span>
+                                                <span>📤 32</span>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <span class="service-tag">03 — Social Media</span>
+                    <h2 class="service-title">Comunicazione & Visual Content</h2>
+                    <p class="service-description">
+                        Gestiamo la tua presenza online con strategie mirate e contenuti di alta qualità. Costruiamo
+                        identità coerenti che generano fiducia e conversioni.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Social Media Management strategico</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Servizi foto e video professionali</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Editing e post-produzione avanzata</span>
+                        </li>
+                        <li>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>Campagne pubblicitarie ottimizzate</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-particles"></div>
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-glow"></div>
+                <h2 class="cta-title">Pronto a Trasformare la Tua Presenza Digitale?</h2>
+                <p class="cta-subtitle">Iniziamo insieme il tuo percorso verso il successo online</p>
+                <a href="#contatti" class="btn btn-primary btn-large">
+                    <span>Contattaci Ora</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Cosa Dicono di Noi</span>
+                <h2 class="section-title">Storie di Successo</h2>
+            </div>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"WebNovis ha trasformato completamente la nostra presenza online. Il
+                        loro approccio strategico e la qualità del design sono semplicemente eccezionali."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div class="author-info">
+                            <div class="author-name">Marco Rossi</div>
+                            <div class="author-role">CEO, TechStart</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-glow"></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Professionalità, creatività e risultati concreti. Il nostro e-commerce
+                        ha triplicato le vendite grazie al loro lavoro."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div class="author-info">
+                            <div class="author-name">Sara Bianchi</div>
+                            <div class="author-role">Founder, StyleShop</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-glow"></div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Un team che capisce davvero le esigenze del cliente. Ogni dettaglio è
+                        curato con passione e competenza."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">L</div>
+                        <div class="author-info">
+                            <div class="author-name">Luca Verdi</div>
+                            <div class="author-role">Marketing Director, InnovateCo</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Tecnologie</span>
+                <h2 class="section-title">Stack Tecnologico All'Avanguardia</h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">⚛️</div>
+                    <div class="tech-name">React</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎨</div>
+                    <div class="tech-name">Figma</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">📱</div>
+                    <div class="tech-name">Mobile First</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <div class="tech-name">Performance</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🔒</div>
+                    <div class="tech-name">Security</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🚀</div>
+                    <div class="tech-name">SEO</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contatti">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <h2 class="contact-title">Parliamone</h2>
+                    <p class="contact-description">
+                        Raccontaci il tuo progetto e scopri come possiamo aiutarti a raggiungere i tuoi obiettivi
+                        digitali.
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M3 8L10.89 13.26C11.54 13.67 12.46 13.67 13.11 13.26L21 8M5 19H19C20.1 19 21 18.1 21 17V7C21 5.9 20.1 5 19 5H5C3.9 5 3 5.9 3 7V17C3 18.1 3.9 19 5 19Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>info@webnovis.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span>+39 [phone_number]</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nome" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Azienda">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Raccontaci il tuo progetto" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Invia Messaggio</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-web">Web</span><span class="logo-novis">Novis</span>
+                    </div>
+                    <p>Creiamo esperienze digitali memorabili</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Servizi</h4>
+                        <a href="#web">Web Development</a>
+                        <a href="#design">Graphic Design</a>
+                        <a href="#social">Social Media</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Azienda</h4>
+                        <a href="#servizi">Chi Siamo</a>
+                        <a href="#contatti">Contatti</a>
+                        <a href="#">Portfolio</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Social</h4>
+                        <a href="#">Instagram</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Facebook</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 WebNovis. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Weby Chat Button -->
+    <div class="weby-chat-container">
+        <!-- Chat Bubble with Weby -->
+        <div class="weby-bubble" id="webyBubble">
+            <div class="weby-avatar">
+                <div class="weby-avatar-inner">
+                    <span class="weby-emoji">🤖</span>
+                </div>
+                <div class="weby-pulse"></div>
+            </div>
+            <div class="weby-message">
+                <div class="weby-text">
+                    <strong>Ciao! Sono Weby 👋</strong><br>
+                    <span>Chiedimi qualsiasi cosa!</span>
+                </div>
+                <div class="weby-close" id="webyBubbleClose">✕</div>
+            </div>
+        </div>
+        
+        <!-- Main Chat Button -->
+        <button class="weby-button" id="chatButton">
+            <div class="weby-button-content">
+                <svg class="weby-icon" width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" 
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="weby-label">Parla con Weby</span>
+            </div>
+            <span class="weby-notification">💬</span>
+        </button>
+    </div>
+
+    <!-- Chat Popup -->
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">
+                    <span>🤖</span>
+                    <span class="chat-status"></span>
+                </div>
+                <div class="chat-header-text">
+                    <h3>Weby - Il tuo assistente</h3>
+                    <p>Online e pronto ad aiutarti! 💡</p>
+                </div>
+            </div>
+            <button class="chat-close" id="chatClose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot-message">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <p>Ciao! Sono Weby 👋</p>
+                    <p>Il tuo assistente personale WebNovis! Chiedimi qualsiasi cosa sui nostri servizi, prezzi o progetti. Sono qui per aiutarti! 💡</p>
+                    <span class="message-time">Ora</span>
+                </div>
+            </div>
+
+            <div class="chat-quick-replies">
+                <button class="quick-reply" data-message="Vorrei informazioni sui vostri servizi">
+                    💼 Info Servizi
+                </button>
+                <button class="quick-reply" data-message="Vorrei un preventivo">
+                    💰 Preventivo
+                </button>
+                <button class="quick-reply" data-message="Ho bisogno di supporto">
+                    🆘 Supporto
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Scrivi un messaggio...">
+            <button class="chat-send" id="chatSend">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 8L11 13" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+
+</html>

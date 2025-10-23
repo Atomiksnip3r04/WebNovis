@@ -1,0 +1,142 @@
+/* ===== WEBY MOBILE FIX - Soluzione Geniale ===== */
+
+/* Mobile: Weby si riduce e si sposta in basso a destra senza coprire contenuti */
+@media (max-width: 768px) {
+    .weby-chat-container {
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 999;
+    }
+
+    /* Nascondi il bubble message su mobile per risparmiare spazio */
+    .weby-bubble {
+        display: none !important;
+    }
+
+    /* Riduci il bottone Weby su mobile */
+    .weby-button {
+        padding: 12px 18px;
+        border-radius: 50px;
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.5);
+    }
+
+    .weby-button-content {
+        gap: 8px;
+    }
+
+    .weby-label {
+        font-size: 0.85rem;
+    }
+
+    .weby-icon {
+        font-size: 1.1rem;
+    }
+
+    .weby-notification {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+        top: -4px;
+        right: -4px;
+        border-width: 2px;
+    }
+
+    /* Chat popup ottimizzato per mobile */
+    .chat-popup {
+        right: 1rem;
+        left: 1rem;
+        bottom: 5rem;
+        width: auto;
+        max-width: calc(100vw - 2rem);
+        height: 70vh;
+        max-height: 500px;
+    }
+
+    /* Assicurati che il contenuto principale non venga coperto */
+    body {
+        padding-bottom: 0;
+    }
+
+    /* Il bottone Weby non deve interferire con lo scroll */
+    .weby-chat-container {
+        pointer-events: none;
+    }
+
+    .weby-button,
+    .chat-popup {
+        pointer-events: all;
+    }
+}
+
+/* Versione compatta per schermi molto piccoli */
+@media (max-width: 480px) {
+    .weby-chat-container {
+        bottom: 0.75rem;
+        right: 0.75rem;
+    }
+
+    /* Versione ancora più compatta del bottone */
+    .weby-button {
+        padding: 10px 16px;
+    }
+
+    .weby-label {
+        font-size: 0.8rem;
+    }
+
+    .weby-notification {
+        width: 18px;
+        height: 18px;
+        font-size: 0.65rem;
+    }
+
+    /* Chat popup full-screen su mobile piccolo */
+    .chat-popup {
+        bottom: 4.5rem;
+        height: calc(100vh - 6rem);
+        max-height: none;
+    }
+}
+
+/* Fix per landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .chat-popup {
+        height: 85vh;
+        max-height: 400px;
+    }
+}
+
+/* Assicura che il pallino rosso sia sempre visibile */
+.weby-notification {
+    overflow: visible !important;
+    clip-path: none !important;
+}
+
+.weby-button {
+    overflow: visible !important;
+}
+
+/* Animazione ridotta su mobile per performance */
+@media (max-width: 768px) {
+    .weby-button {
+        animation: webyButtonPulseMobile 3s ease-in-out infinite;
+    }
+
+    @keyframes webyButtonPulseMobile {
+        0%, 100% {
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.5);
+        }
+        50% {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.7);
+        }
+    }
+
+    .weby-notification {
+        animation: webyNotificationBounceMobile 2s ease-in-out infinite;
+    }
+
+    @keyframes webyNotificationBounceMobile {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+}

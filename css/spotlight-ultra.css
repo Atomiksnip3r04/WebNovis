@@ -1,0 +1,255 @@
+/* ===== SPOTLIGHT ULTRA-REALISTIC ENHANCEMENTS ===== */
+
+/* Vignette effect per maggiore profondità */
+.spotlight-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Enhanced spotlight circle con effetto vetro - OPTIMIZED */
+.spotlight-circle::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(99, 102, 241, 0.2) 0%, 
+        rgba(236, 72, 153, 0.1) 50%,
+        transparent 70%);
+    filter: blur(20px);
+    animation: haloRotate 8s linear infinite;
+    z-index: -1;
+    will-change: transform;
+}
+
+@keyframes haloRotate {
+    0% { transform: rotate(0deg) scale(1) translateZ(0); }
+    50% { transform: rotate(180deg) scale(1.1) translateZ(0); }
+    100% { transform: rotate(360deg) scale(1) translateZ(0); }
+}
+
+/* Effetto riflesso sulla superficie */
+.spotlight-circle::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    height: 40%;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%);
+    border-radius: 50% 50% 0 0;
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+/* Logo con effetto olografico - OPTIMIZED */
+.spotlight-logo {
+    position: relative;
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+    animation: logoFloat 3s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes logoFloat {
+    0%, 100% { 
+        transform: translateY(0) scale(1) translateZ(0);
+        filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+    }
+    50% { 
+        transform: translateY(-10px) scale(1.02) translateZ(0);
+        filter: drop-shadow(0 0 30px rgba(236, 72, 153, 0.7));
+    }
+}
+
+.spotlight-logo::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.3) 0%, 
+        rgba(236, 72, 153, 0.3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: blur(2px);
+    z-index: -1;
+}
+
+/* Freccia con effetto neon pulsante */
+.spotlight-arrow {
+    position: relative;
+    filter: drop-shadow(0 0 10px currentColor);
+    animation: arrowGlow 2s ease-in-out infinite;
+}
+
+@keyframes arrowGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.6));
+        transform: translateY(0);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.8));
+        transform: translateY(5px);
+    }
+}
+
+/* Effetto particelle ambientali */
+@keyframes floatAmbient {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100px, -100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Effetto scanline futuristico */
+.spotlight-overlay::before {
+    animation: scanlineMove 8s linear infinite;
+}
+
+@keyframes scanlineMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+    .spotlight-circle {
+        width: 320px;
+        height: 320px;
+    }
+
+    .spotlight-circle::before {
+        inset: -15px;
+    }
+
+    .spotlight-logo {
+        font-size: 2.2rem;
+    }
+
+    .spotlight-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .spotlight-circle {
+        width: 280px;
+        height: 280px;
+    }
+
+    .spotlight-circle::before {
+        inset: -10px;
+    }
+
+    .spotlight-logo {
+        font-size: 1.8rem;
+    }
+
+    .spotlight-text {
+        font-size: 0.9rem;
+    }
+
+    .spotlight-arrow {
+        font-size: 2rem;
+    }
+}
+
+/* Effetto hover avanzato */
+.spotlight-circle:hover {
+    animation: spotlightHoverPulse 0.6s ease-in-out;
+}
+
+@keyframes spotlightHoverPulse {
+    0%, 100% {
+        transform: scale(1.15);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* Effetto click con onde */
+.spotlight-circle:active {
+    animation: clickWave 0.4s ease-out;
+}
+
+@keyframes clickWave {
+    0% {
+        box-shadow: 
+            0 0 0 0 rgba(99, 102, 241, 0.7),
+            0 0 0 0 rgba(236, 72, 153, 0.7);
+    }
+    100% {
+        box-shadow: 
+            0 0 0 50px rgba(99, 102, 241, 0),
+            0 0 0 100px rgba(236, 72, 153, 0);
+    }
+}
+
+/* Effetto luce dinamica sul testo - RIMOSSO per performance */
+.spotlight-content {
+    position: relative;
+}
+
+/* Effetto prisma sul logo */
+.logo-novis {
+    position: relative;
+    animation: prismShift 4s ease-in-out infinite;
+}
+
+@keyframes prismShift {
+    0%, 100% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+    50% {
+        filter: hue-rotate(20deg) brightness(1.2);
+    }
+}
+
+/* Performance optimization */
+@media (prefers-reduced-motion: reduce) {
+    .spotlight-circle,
+    .spotlight-circle::before,
+    .spotlight-circle::after,
+    .spotlight-logo,
+    .spotlight-arrow,
+    .spotlight-content::before {
+        animation: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .spotlight-circle {
+        border-width: 3px;
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .spotlight-text {
+        color: rgba(255, 255, 255, 1);
+    }
+}
