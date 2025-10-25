@@ -4,7 +4,7 @@
 ![Status](https://img.shields.io/badge/Status-Live-success?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-> **Accendi la tua miccia e illumina la tua visibilità**
+> **Accendi la scintilla che illumina la tua visibilità**
 
 Sito web professionale per WebNovis, agenzia digitale specializzata in Web Development, Graphic Design e Social Media Management.
 
