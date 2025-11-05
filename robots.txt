@@ -1,0 +1,94 @@
+# robots.txt per WebNovis - Agenzia Digitale
+# https://www.webnovis.com
+
+# Permetti a tutti i motori di ricerca di indicizzare il sito
+User-agent: *
+Allow: /
+
+# Blocca l'accesso a file e cartelle non pubbliche
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.vscode/
+Disallow: /.env
+Disallow: /server.js
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /*.bat$
+Disallow: /*.md$
+Disallow: /test-*.html
+Disallow: /server-log.txt
+
+# Permetti esplicitamente le risorse importanti per SEO
+Allow: /css/
+Allow: /js/
+Allow: /Img/
+Allow: /index.html
+Allow: /CNAME
+
+# Sitemap (da creare)
+Sitemap: https://www.webnovis.com/sitemap.xml
+
+# Regole specifiche per i principali motori di ricerca
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Google Images - importante per le immagini del portfolio
+User-agent: Googlebot-Image
+Allow: /Img/
+Allow: /css/
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
+
+# Facebook (per Open Graph preview)
+User-agent: facebookexternalhit
+Allow: /
+
+# Twitter (per Twitter Cards)
+User-agent: Twitterbot
+Allow: /
+
+# LinkedIn
+User-agent: LinkedInBot
+Allow: /
+
+# WhatsApp
+User-agent: WhatsApp
+Allow: /
+
+# Blocca bot malevoli e scraper
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
