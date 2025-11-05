@@ -1396,9 +1396,10 @@ section {
     gap: 2rem;
 }
 
-.footer-column h4 {
+.footer-column h3 {
     font-weight: 600;
     margin-bottom: 1rem;
+    font-size: 1.1rem;
 }
 
 .footer-column a {
@@ -1417,7 +1418,7 @@ section {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    color: var(--gray);
+    color: #9a9a9a; /* Grigio più chiaro per contrasto WCAG AA */
     font-size: 0.9rem;
 }
 
@@ -2415,7 +2416,7 @@ button:hover,
 
 .author-role {
     font-size: 0.9rem;
-    color: var(--gray);
+    color: #9a9a9a; /* Grigio più chiaro per contrasto WCAG AA */
 }
 
 .testimonial-glow {
