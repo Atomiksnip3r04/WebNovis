@@ -4,6 +4,11 @@
 # Sitemap
 Sitemap: https://www.webnovis.com/sitemap.xml
 
+# AI-readable content
+# File ottimizzati per AI (ChatGPT, Claude, Perplexity, Gemini, ecc.)
+Allow: /ai.txt
+Allow: /webnovis-ai-data.json
+
 # Regole per tutti i motori di ricerca
 User-agent: *
 Allow: /css/
@@ -12,6 +17,8 @@ Allow: /Img/
 Allow: /index.html
 Allow: /robots.txt
 Allow: /sitemap.xml
+Allow: /ai.txt
+Allow: /webnovis-ai-data.json
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /.vscode/

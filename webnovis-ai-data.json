@@ -1,0 +1,194 @@
+{
+  "company": {
+    "name": "WebNovis",
+    "type": "Digital Agency",
+    "tagline": "Accendi la scintilla che illumina la tua visibilità",
+    "motto": "Porta alla luce la tua attività",
+    "website": "https://www.webnovis.com",
+    "email": "info@webnovis.com",
+    "country": "Italia",
+    "language": "Italian",
+    "established": "2024"
+  },
+  "services": {
+    "web_development": {
+      "name": "Sviluppo Web",
+      "description": "Creazione di siti web professionali, e-commerce, landing page e web app",
+      "offerings": [
+        "Siti web responsive",
+        "E-commerce personalizzati",
+        "Landing page ad alta conversione",
+        "Web app e portali aziendali",
+        "Ottimizzazione SEO",
+        "Performance optimization",
+        "Hosting e manutenzione",
+        "Sicurezza e backup"
+      ],
+      "technologies": ["HTML5", "CSS3", "JavaScript", "React", "Node.js", "WordPress", "Shopify"]
+    },
+    "graphic_design": {
+      "name": "Graphic Design e Branding",
+      "description": "Creazione di identità visive coerenti e d'impatto",
+      "offerings": [
+        "Logo design",
+        "Brand identity",
+        "Coordinato aziendale",
+        "Packaging design",
+        "Brochure e cataloghi",
+        "Design per social media",
+        "Illustrazioni personalizzate",
+        "UI/UX design"
+      ],
+      "specializations": ["Brand identity", "Visual design", "Corporate branding"]
+    },
+    "social_media": {
+      "name": "Social Media Management",
+      "description": "Gestione completa della presenza online e strategia social",
+      "offerings": [
+        "Strategia social media",
+        "Creazione contenuti visual",
+        "Copywriting e storytelling",
+        "Community management",
+        "Meta Advertising (Facebook/Instagram)",
+        "Analytics e reportistica",
+        "Influencer marketing",
+        "Content calendar"
+      ],
+      "platforms": ["Instagram", "Facebook", "LinkedIn", "TikTok", "YouTube"]
+    }
+  },
+  "approach": {
+    "philosophy": "Tre Anime, Un Ecosistema",
+    "description": "Web, Design e Social cooperano in armonia per creare soluzioni digitali complete",
+    "pillars": [
+      {
+        "name": "Web",
+        "role": "La struttura e la funzionalità"
+      },
+      {
+        "name": "Design",
+        "role": "L'identità visiva"
+      },
+      {
+        "name": "Social",
+        "role": "La voce del brand"
+      }
+    ]
+  },
+  "why_choose_us": [
+    "Servizio completo: dalla strategia alla realizzazione",
+    "Approccio personalizzato per ogni cliente",
+    "Focus su risultati misurabili e ROI",
+    "Tecnologie all'avanguardia",
+    "Supporto continuativo post-lancio"
+  ],
+  "target_industries": [
+    "E-commerce e retail",
+    "Startup tecnologiche",
+    "Aziende B2B",
+    "Professionisti e liberi professionisti",
+    "Ristoranti e hospitality",
+    "Moda e lifestyle",
+    "Servizi e consulenza"
+  ],
+  "process": [
+    {
+      "step": 1,
+      "name": "Consulenza Iniziale",
+      "description": "Analisi obiettivi e necessità del cliente"
+    },
+    {
+      "step": 2,
+      "name": "Strategia",
+      "description": "Definizione piano d'azione personalizzato"
+    },
+    {
+      "step": 3,
+      "name": "Design",
+      "description": "Creazione concept e identità visiva"
+    },
+    {
+      "step": 4,
+      "name": "Sviluppo",
+      "description": "Realizzazione tecnica del progetto"
+    },
+    {
+      "step": 5,
+      "name": "Lancio",
+      "description": "Deploy e ottimizzazione finale"
+    },
+    {
+      "step": 6,
+      "name": "Supporto",
+      "description": "Manutenzione e aggiornamenti continui"
+    }
+  ],
+  "keywords": [
+    "agenzia digitale",
+    "web agency",
+    "sviluppo siti web",
+    "creazione siti internet",
+    "e-commerce",
+    "social media marketing",
+    "social media management",
+    "graphic design",
+    "brand identity",
+    "logo design",
+    "SEO",
+    "digital marketing",
+    "web development Italia",
+    "agenzia comunicazione",
+    "content creation",
+    "Instagram marketing",
+    "Facebook advertising",
+    "UI/UX design",
+    "responsive design",
+    "landing page",
+    "web app",
+    "WordPress",
+    "Shopify",
+    "branding aziendale",
+    "coordinato grafico",
+    "visual identity",
+    "storytelling",
+    "copywriting",
+    "influencer marketing",
+    "digital strategy",
+    "online marketing",
+    "presenza digitale",
+    "trasformazione digitale"
+  ],
+  "faq": [
+    {
+      "question": "WebNovis offre servizi di sviluppo siti web?",
+      "answer": "Sì, WebNovis è specializzata nello sviluppo di siti web professionali, e-commerce, landing page e web app responsive e ottimizzate per SEO."
+    },
+    {
+      "question": "WebNovis gestisce i social media?",
+      "answer": "Sì, WebNovis offre servizi completi di social media management, inclusa strategia, creazione contenuti, copywriting e advertising su tutte le principali piattaforme."
+    },
+    {
+      "question": "WebNovis fa grafica e branding?",
+      "answer": "Sì, WebNovis crea identità visive complete, logo design, coordinati aziendali, packaging e tutti i materiali di comunicazione visiva."
+    },
+    {
+      "question": "Dove opera WebNovis?",
+      "answer": "WebNovis opera principalmente in Italia ma può seguire progetti in tutta Europa, lavorando sia in presenza che da remoto."
+    },
+    {
+      "question": "WebNovis offre pacchetti all-inclusive?",
+      "answer": "Sì, WebNovis offre soluzioni complete che integrano web development, graphic design e social media management in un unico ecosistema coordinato."
+    }
+  ],
+  "contact": {
+    "email": "info@webnovis.com",
+    "website": "https://www.webnovis.com",
+    "contact_form": "https://www.webnovis.com/#contatti"
+  },
+  "metadata": {
+    "last_updated": "2024-11-06",
+    "version": "1.0",
+    "format": "AI-optimized JSON",
+    "purpose": "Structured data for AI assistants and search engines"
+  }
+}
