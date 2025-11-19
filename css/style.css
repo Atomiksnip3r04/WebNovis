@@ -903,9 +903,11 @@ section {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 16px 12px;
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     scrollbar-width: none;
     /* Firefox */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .social-feed-scroll::-webkit-scrollbar {

@@ -667,6 +667,22 @@ if (socialFeedScroll) {
             isScrolling = true;
             console.log('▶️ Scroll resumed');
         });
+
+        // Touch events for mobile manual scrolling
+        socialFeedScroll.addEventListener('touchstart', () => {
+            isScrolling = false;
+            console.log('📱 Touch start - Scroll paused');
+        }, { passive: true });
+
+        socialFeedScroll.addEventListener('touchend', () => {
+            // Resume after a delay
+            setTimeout(() => {
+                isScrolling = true;
+                // Recalculate position based on manual scroll
+                scrollPosition = socialFeedScroll.scrollTop;
+                console.log('📱 Touch end - Scroll resumed');
+            }, 2000);
+        }, { passive: true });
     }, 100); // Small delay to ensure posts are rendered
 
     // Animate stats counters
