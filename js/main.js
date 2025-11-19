@@ -766,6 +766,24 @@ if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
+        // Get form values
+        const nameInput = contactForm.querySelector('input[placeholder="Nome"]');
+        const emailInput = contactForm.querySelector('input[placeholder="Email"]');
+        const companyInput = contactForm.querySelector('input[placeholder="Azienda"]');
+        const messageInput = contactForm.querySelector('textarea');
+        
+        const name = nameInput ? nameInput.value : '';
+        const email = emailInput ? emailInput.value : '';
+        const company = companyInput ? companyInput.value : '';
+        const message = messageInput ? messageInput.value : '';
+        
+        // Construct mailto link
+        const subject = `Nuovo Contatto dal Sito: ${name}`;
+        const body = `Nome: ${name}%0D%0AEmail: ${email}%0D%0AAzienda: ${company}%0D%0A%0D%0AMessaggio:%0D%0A${message}`;
+        
+        // Open default mail client
+        window.location.href = `mailto:webnovis.info@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+
         // Success animation
         const button = contactForm.querySelector('button[type="submit"]');
         button.innerHTML = '<span>✓ Inviato!</span>';
@@ -1301,7 +1319,7 @@ const getBotResponse = (message) => {
     } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
         return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o chiamarci direttamente. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
     } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
-        return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a info@webnovis.com o chiamarci. Il nostro team è sempre disponibile!';
+        return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o chiamarci. Il nostro team è sempre disponibile!';
     } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
         return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
     } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
@@ -1309,7 +1327,7 @@ const getBotResponse = (message) => {
     } else if (lowerMessage.includes('social') || lowerMessage.includes('instagram') || lowerMessage.includes('facebook')) {
         return 'Gestiamo i tuoi social media con strategie mirate, contenuti di qualità e campagne pubblicitarie ottimizzate. Facciamo crescere il tuo brand! 📱';
     } else if (lowerMessage.includes('contatto') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
-        return 'Puoi contattarci via email a info@webnovis.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
+        return 'Puoi contattarci via email a webnovis.info@gmail.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
     } else if (lowerMessage.includes('ciao') || lowerMessage.includes('salve') || lowerMessage.includes('buongiorno')) {
         return 'Ciao! 👋 Benvenuto su WebNovis. Come posso aiutarti oggi?';
     } else if (lowerMessage.includes('grazie')) {

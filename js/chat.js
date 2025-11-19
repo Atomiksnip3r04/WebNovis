@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
             return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o chiamarci direttamente. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
         } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
-            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a info@webnovis.com o chiamarci. Il nostro team è sempre disponibile!';
+            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o chiamarci. Il nostro team è sempre disponibile!';
         } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
             return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
         } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (lowerMessage.includes('social') || lowerMessage.includes('instagram') || lowerMessage.includes('facebook')) {
             return 'Gestiamo i tuoi social media con strategie mirate, contenuti di qualità e campagne pubblicitarie ottimizzate. Facciamo crescere il tuo brand! 📱';
         } else if (lowerMessage.includes('contatto') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
-            return 'Puoi contattarci via email a info@webnovis.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
+            return 'Puoi contattarci via email a webnovis.info@gmail.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
         } else if (lowerMessage.includes('ciao') || lowerMessage.includes('salve') || lowerMessage.includes('buongiorno')) {
             return 'Ciao! 👋 Benvenuto su WebNovis. Come posso aiutarti oggi?';
         } else if (lowerMessage.includes('grazie')) {
