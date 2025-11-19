@@ -7,16 +7,26 @@
 
 :root {
     /* Palette Lussuosa - Oro & Rosso Elegante */
-    --primary: #b8860b;        /* Oro scuro elegante */
-    --primary-dark: #8b6914;   /* Oro bronzo */
-    --primary-light: #daa520;  /* Oro chiaro */
-    --secondary: #8b1538;      /* Rosso bordeaux profondo */
-    --accent: #cd853f;         /* Oro rosa */
-    --dark: #0d0d0d;           /* Nero assoluto */
-    --dark-light: #1a1a1a;     /* Nero carbone */
-    --gray: #6b6b6b;           /* Grigio caldo */
-    --gray-light: #c4b5a0;     /* Beige chiaro */
-    --white: #faf8f3;          /* Bianco caldo */
+    --primary: #b8860b;
+    /* Oro scuro elegante */
+    --primary-dark: #8b6914;
+    /* Oro bronzo */
+    --primary-light: #daa520;
+    /* Oro chiaro */
+    --secondary: #8b1538;
+    /* Rosso bordeaux profondo */
+    --accent: #cd853f;
+    /* Oro rosa */
+    --dark: #0d0d0d;
+    /* Nero assoluto */
+    --dark-light: #1a1a1a;
+    /* Nero carbone */
+    --gray: #6b6b6b;
+    /* Grigio caldo */
+    --gray-light: #c4b5a0;
+    /* Beige chiaro */
+    --white: #faf8f3;
+    /* Bianco caldo */
     --gradient-1: linear-gradient(135deg, #b8860b 0%, #8b1538 100%);
     --gradient-2: linear-gradient(135deg, #8b1538 0%, #b8860b 100%);
     --gradient-3: linear-gradient(135deg, #daa520 0%, #cd853f 100%);
@@ -59,7 +69,7 @@ body {
     background: rgba(13, 13, 13, 0.85);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(184, 134, 11, 0.2);
-    box-shadow: 
+    box-shadow:
         0 4px 20px rgba(0, 0, 0, 0.3),
         0 0 40px rgba(184, 134, 11, 0.1),
         inset 0 -1px 0 rgba(184, 134, 11, 0.15);
@@ -68,7 +78,7 @@ body {
 
 .nav.scrolled {
     background: rgba(13, 13, 13, 0.98);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.5),
         0 0 60px rgba(184, 134, 11, 0.15),
         inset 0 -1px 0 rgba(184, 134, 11, 0.2);
@@ -1420,7 +1430,8 @@ section {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    color: #9a9a9a; /* Grigio più chiaro per contrasto WCAG AA */
+    color: #9a9a9a;
+    /* Grigio più chiaro per contrasto WCAG AA */
     font-size: 0.9rem;
 }
 
@@ -2418,7 +2429,8 @@ button:hover,
 
 .author-role {
     font-size: 0.9rem;
-    color: #9a9a9a; /* Grigio più chiaro per contrasto WCAG AA */
+    color: #9a9a9a;
+    /* Grigio più chiaro per contrasto WCAG AA */
 }
 
 .testimonial-glow {
@@ -2534,7 +2546,7 @@ button:hover,
     pointer-events: none;
 }
 
-.weby-chat-container > * {
+.weby-chat-container>* {
     pointer-events: all;
 }
 
@@ -2596,8 +2608,15 @@ button:hover,
 }
 
 @keyframes webyBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
 .weby-pulse {
@@ -2613,6 +2632,7 @@ button:hover,
         transform: scale(1);
         opacity: 1;
     }
+
     100% {
         transform: scale(1.5);
         opacity: 0;
@@ -2631,8 +2651,15 @@ button:hover,
 }
 
 @keyframes webyMessageFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
 }
 
 .weby-text {
@@ -2682,7 +2709,7 @@ button:hover,
     border-radius: 50px;
     padding: 14px 24px;
     cursor: pointer;
-    box-shadow: 
+    box-shadow:
         0 8px 24px rgba(99, 102, 241, 0.4),
         0 0 0 0 rgba(99, 102, 241, 0.4);
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
@@ -2692,13 +2719,16 @@ button:hover,
 }
 
 @keyframes webyButtonPulse {
-    0%, 100% {
-        box-shadow: 
+
+    0%,
+    100% {
+        box-shadow:
             0 8px 24px rgba(99, 102, 241, 0.4),
             0 0 0 0 rgba(99, 102, 241, 0.4);
     }
+
     50% {
-        box-shadow: 
+        box-shadow:
             0 12px 32px rgba(99, 102, 241, 0.6),
             0 0 0 8px rgba(99, 102, 241, 0.1);
     }
@@ -2715,7 +2745,7 @@ button:hover,
 
 .weby-button:hover {
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 
+    box-shadow:
         0 16px 40px rgba(99, 102, 241, 0.6),
         0 0 0 12px rgba(99, 102, 241, 0.1);
 }
@@ -2772,9 +2802,19 @@ button:hover,
 }
 
 @keyframes webyNotificationBounce {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    25% { transform: scale(1.1) rotate(-10deg); }
-    75% { transform: scale(1.1) rotate(10deg); }
+
+    0%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.1) rotate(-10deg);
+    }
+
+    75% {
+        transform: scale(1.1) rotate(10deg);
+    }
 }
 
 

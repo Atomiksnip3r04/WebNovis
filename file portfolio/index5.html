@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure Architecture Portfolio | Design Tecnico e Minimale</title>
+    <meta name="description" content="Structure / 01: un portfolio per architettura dal design tecnico e rigoroso. Focus su funzionalità, materiali e geometria spaziale.">
+    
+    <!-- Font: JetBrains Mono (Tecnico, Coding) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #e6e6e6;        /* Grigio cemento chiaro */
+            --ink: #111111;       /* Nero */
+            --accent: #ff3c00;    /* Arancione Internazionale */
+            --line: #b3b3b3;      /* Colore linee griglia */
+            
+            --font: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Nascondiamo la scrollbar nativa per pulizia */
+        ::-webkit-scrollbar { height: 0px; background: transparent; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font);
+            overflow: hidden; /* Blocchiamo lo scroll nativo del body */
+            height: 100vh;
+            width: 100vw;
+            cursor: none; /* Cursore custom */
+        }
+
+        /* --- CROSSHAIR CURSOR --- */
+        .cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        .cursor::before, .cursor::after {
+            content: '';
+            position: absolute;
+            background: var(--accent);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .cursor::before { width: 100%; height: 2px; } /* Orizzontale */
+        .cursor::after { width: 2px; height: 100%; } /* Verticale */
+
+        /* --- UI FISSA (Header/Footer) --- */
+        .fixed-ui {
+            position: fixed;
+            padding: 1.5rem;
+            z-index: 100;
+            pointer-events: none; /* Lascia cliccare sotto */
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        .fixed-ui.top { top: 0; border-bottom: 1px solid var(--line); background: rgba(230,230,230,0.8); backdrop-filter: blur(5px); }
+        .fixed-ui.bottom { bottom: 0; border-top: 1px solid var(--line); justify-content: space-between; }
+
+        .logo { font-weight: 800; color: var(--accent); pointer-events: auto; }
+        .coords { color: #666; }
+
+        /* --- HORIZONTAL CONTAINER --- */
+        .scroll-container {
+            display: flex;
+            height: 100vh;
+            width: 100%; /* Occupa tutta la larghezza */
+            overflow-x: auto; /* Abilita lo scroll orizzontale nativo */
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+
+        /* Nascondiamo la scrollbar orizzontale */
+        .scroll-container::-webkit-scrollbar { display: none; }
+        .scroll-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- SECTIONS (PANELS) --- */
+        .panel {
+            height: 100vh;
+            border-right: 1px solid var(--line);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 4rem;
+            min-width: 600px; /* Larghezza minima pannello */
+        }
+
+        /* Pannello 1: Titolo */
+        .panel.intro {
+            min-width: 900px;
+            background: var(--bg);
+        }
+
+        h1 {
+            font-size: 6rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        
+        h1 span { color: var(--accent); }
+
+        .meta-data {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 2rem;
+            border-top: 1px solid var(--ink);
+            padding-top: 1rem;
+            display: inline-block;
+            width: 200px;
+        }
+
+        /* Pannello 2: Immagine Full */
+        .panel.image-full {
+            padding: 0;
+            min-width: 800px;
+        }
+        
+        .panel.image-full img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: filter 0.5s;
+        }
+        
+        .panel.image-full:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Pannello 3: Testo + Dettagli */
+        .panel.text {
+            min-width: 700px;
+            background: #111;
+            color: #e6e6e6;
+        }
+
+        .panel.text h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .panel.text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        /* Pannello 4: Galleria Griglia */
+        .panel.gallery {
+            min-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 0;
+        }
+
+        .gal-item {
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gal-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gal-item:hover img { transform: scale(1.1); }
+
+        .gal-caption {
+            position: absolute;
+            bottom: 1rem; left: 1rem;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.7rem;
+        }
+
+        /* Pannello 5: Outro */
+        .panel.outro {
+            min-width: 800px;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .big-link {
+            font-size: 4rem;
+            border-bottom: 4px solid var(--ink);
+            transition: all 0.3s;
+            color: var(--ink) !important; /* Forza il colore nero */
+            text-decoration: none;
+        }
+        .big-link:visited {
+            color: var(--ink) !important; /* Previene il blu sui link visitati */
+        }
+        .big-link:hover {
+            background: var(--accent);
+            border-color: transparent;
+            color: white !important;
+            padding: 0 1rem;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            body { overflow: auto; height: auto; cursor: auto; }
+            .cursor { display: none; }
+            .scroll-container { flex-direction: column; width: 100%; height: auto; }
+            .panel { width: 100% !important; min-width: 0 !important; height: auto; min-height: 80vh; border-right: none; border-bottom: 1px solid var(--line); padding: 4rem 1.5rem;}
+            .panel.intro { padding-top: 8rem; }
+            h1 { font-size: 3.5rem; }
+            .fixed-ui.bottom { display: none; }
+            .panel.gallery { display: flex; flex-direction: column; }
+            .gal-item { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- UI Fissa -->
+    <div class="fixed-ui top">
+        <div class="logo">STRUCTURE / 01</div>
+        <div>ARCH. PROJECT 2024</div>
+        <div>[MENU]</div>
+    </div>
+
+    <div class="fixed-ui bottom">
+        <div class="coords">X: 000 — Y: 000</div>
+        <div>SCROLL TO EXPLORE -></div>
+    </div>
+
+    <!-- Contenitore Scorrevole Orizzontale -->
+    <div class="scroll-container" id="scrollContainer">
+        
+        <!-- Panel 1: Intro -->
+        <section class="panel intro">
+            <div style="font-size: 0.8rem; margin-bottom: 1rem;">// 001_INDEX</div>
+            <h1>Structure<br><span>Architecture_</span></h1>
+            <p style="font-size: 1.5rem; text-transform: uppercase; margin-bottom: 2rem;">Form Follows Function.</p>
+            <div class="meta-data">
+                LOC: TOKYO, JP<br>
+                AREA: 450 SQM<br>
+                STATUS: COMPLETED
+            </div>
+        </section>
+
+        <!-- Panel 2: Image -->
+        <section class="panel image-full">
+            <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop" alt="Structure Architecture Concrete Detail">
+        </section>
+
+        <!-- Panel 3: Manifesto -->
+        <section class="panel text">
+            <div style="font-size: 0.8rem; margin-bottom: 1rem; color: #666;">// 002_DATA</div>
+            <h2>Raw Materials</h2>
+            <p>La verità del materiale non viene mai nascosta. Cemento grezzo, acciaio esposto e vetro temperato creano un dialogo tra la struttura e l'ambiente circostante. Rifiutiamo l'ornamento a favore della pura geometria spaziale.</p>
+            <br>
+            <p style="color: var(--accent);">-> READ SPECS</p>
+        </section>
+
+        <!-- Panel 4: Gallery Grid -->
+        <section class="panel gallery">
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1558963820-18921d3e076d?q=80&w=1770&auto=format&fit=crop" alt="Architecture Exterior Detail">
+                <span class="gal-caption">EXTERIOR</span>
+            </div>
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop" alt="Architecture Interior Space">
+                <span class="gal-caption">INTERIOR</span>
+            </div>
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1535295972055-1c762f4483e5?q=80&w=1887&auto=format&fit=crop" alt="Architectural Detail Concrete">
+                <span class="gal-caption">DETAIL</span>
+            </div>
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1599841617601-63b4f3699191?q=80&w=1770&auto=format&fit=crop" alt="Architectural Plan Light">
+                <span class="gal-caption">PLAN</span>
+            </div>
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1931&auto=format&fit=crop" alt="Light and Shadow Architecture">
+                <span class="gal-caption">LIGHT</span>
+            </div>
+            <div class="gal-item" style="background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 2rem;">
+                <div style="font-size: 3rem;">+</div>
+                <div>VIEW FULL<br>ARCHIVE</div>
+            </div>
+        </section>
+
+        <!-- Panel 5: Outro -->
+        <section class="panel outro">
+            <div style="margin-bottom: 2rem;">READY TO BUILD?</div>
+            <a href="#" class="big-link">CONTACT_US</a>
+        </section>
+
+    </div>
+
+    <script>
+        // --- LOGICA SCROLL ORIZZONTALE ---
+        const scrollContainer = document.getElementById("scrollContainer");
+        
+        // Trasforma lo scroll della rotellina (verticale) in scroll orizzontale
+        window.addEventListener("wheel", (evt) => {
+            // Solo se schermo largo (desktop)
+            if(window.innerWidth > 768) {
+                // Se è un mouse verticale (deltaY dominante), lo convertiamo in orizzontale
+                if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
+                    scrollContainer.scrollLeft += evt.deltaY;
+                    // evt.preventDefault(); // Rimuoviamo preventDefault per permettere inerzia su alcuni browser, ma attenzione allo scroll verticale della pagina se esistesse. Qui overflow-y è hidden, quindi ok.
+                }
+            }
+        });
+
+        // --- LOGICA CURSORE CROSSHAIR ---
+        const cursor = document.getElementById("cursor");
+        const coordsDiv = document.querySelector(".coords");
+
+        document.addEventListener("mousemove", (e) => {
+            // Muove il cursore
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+
+            // Aggiorna coordinate fittizie nel footer
+            coordsDiv.innerText = `X: ${e.clientX} — Y: ${e.clientY}`;
+        });
+
+        // Effetto hover sui link (ingrandisce il cursore)
+        document.querySelectorAll("a, .gal-item").forEach(el => {
+            el.addEventListener("mouseenter", () => {
+                cursor.style.transform = "translate(-50%, -50%) scale(1.5) rotate(45deg)";
+            });
+            el.addEventListener("mouseleave", () => {
+                cursor.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
+            });
+        });
+    </script>
+</body>
+</html>

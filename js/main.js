@@ -6,13 +6,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 100) {
         nav.classList.add('scrolled');
     } else {
         nav.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -78,7 +78,7 @@ animatedElements.forEach(el => {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const orbs = document.querySelectorAll('.gradient-orb');
-    
+
     orbs.forEach((orb, index) => {
         const speed = 0.5 + (index * 0.2);
         orb.style.transform = `translateY(${scrolled * speed}px)`;
@@ -90,11 +90,11 @@ window.addEventListener('scroll', () => {
 // Add hover effect to triade cards
 const triadeCards = document.querySelectorAll('.triade-card');
 triadeCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         this.style.transform = 'translateY(-10px) scale(1.02)';
     });
-    
-    card.addEventListener('mouseleave', function() {
+
+    card.addEventListener('mouseleave', function () {
         this.style.transform = 'translateY(0) scale(1)';
     });
 });
@@ -117,13 +117,13 @@ const sections = document.querySelectorAll('section[id]');
 
 const highlightNav = () => {
     const scrollY = window.pageYOffset;
-    
+
     sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
         const sectionId = section.getAttribute('id');
         const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-        
+
         if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
             navLinks.forEach(link => link.classList.remove('active'));
             navLink.classList.add('active');
@@ -164,79 +164,82 @@ window.addEventListener('scroll', debouncedHighlight);
 
 // Particle System nel Canvas
 const canvas = document.getElementById('particlesCanvas');
-const ctx = canvas.getContext('2d');
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
+if (canvas) {
+    const ctx = canvas.getContext('2d');
 
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.5 + 0.2;
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
 
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-        if (this.x > canvas.width) this.x = 0;
-        if (this.x < 0) this.x = canvas.width;
-        if (this.y > canvas.height) this.y = 0;
-        if (this.y < 0) this.y = canvas.height;
-    }
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+            this.opacity = Math.random() * 0.5 + 0.2;
+        }
 
-    draw() {
-        ctx.fillStyle = `rgba(184, 134, 11, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
 
-const particles = [];
-for (let i = 0; i < 100; i++) {
-    particles.push(new Particle());
-}
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+        }
 
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-    });
-
-    // Connetti particelle vicine
-    for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 100) {
-                ctx.strokeStyle = `rgba(184, 134, 11, ${0.2 * (1 - distance / 100)})`;
-                ctx.lineWidth = 0.5;
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
-            }
+        draw() {
+            ctx.fillStyle = `rgba(184, 134, 11, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
     }
 
-    requestAnimationFrame(animateParticles);
-}
+    const particles = [];
+    for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+    }
 
-animateParticles();
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+
+        // Connetti particelle vicine
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    ctx.strokeStyle = `rgba(184, 134, 11, ${0.2 * (1 - distance / 100)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+}
 
 // Effetto Magnetico sulle Card
 const magneticElements = document.querySelectorAll('.magnetic');
@@ -246,13 +249,13 @@ magneticElements.forEach(element => {
         const rect = element.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        
+
         const moveX = x * 0.15;
         const moveY = y * 0.15;
-        
+
         element.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
     });
-    
+
     element.addEventListener('mouseleave', () => {
         element.style.transform = 'translate(0, 0) scale(1)';
     });
@@ -268,16 +271,16 @@ visualCards.forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         const rotateX = (y - centerY) / 10;
         const rotateY = (centerX - x) / 10;
-        
+
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
     });
@@ -310,14 +313,14 @@ revealElements.forEach(el => {
 // Parallax Avanzato Multi-Layer
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    
+
     // Parallax per gli orbs
     const orbs = document.querySelectorAll('.gradient-orb');
     orbs.forEach((orb, index) => {
         const speed = 0.3 + (index * 0.15);
         orb.style.transform = `translateY(${scrolled * speed}px) scale(${1 + scrolled * 0.0001})`;
     });
-    
+
     // Parallax per le floating cards
     const floatingCards = document.querySelectorAll('.floating-card');
     floatingCards.forEach((card, index) => {
@@ -342,9 +345,9 @@ document.addEventListener('click', (e) => {
         transform: translate(-50%, -50%) scale(0);
         animation: rippleEffect 0.6s ease-out forwards;
     `;
-    
+
     document.body.appendChild(ripple);
-    
+
     setTimeout(() => ripple.remove(), 600);
 });
 
@@ -365,14 +368,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        
+
         if (target) {
             const targetPosition = target.offsetTop - 80;
             const startPosition = window.pageYOffset;
             const distance = targetPosition - startPosition;
             const duration = 1000;
             let start = null;
-            
+
             function animation(currentTime) {
                 if (start === null) start = currentTime;
                 const timeElapsed = currentTime - start;
@@ -380,14 +383,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 window.scrollTo(0, run);
                 if (timeElapsed < duration) requestAnimationFrame(animation);
             }
-            
+
             function easeInOutCubic(t, b, c, d) {
                 t /= d / 2;
                 if (t < 1) return c / 2 * t * t * t + b;
                 t -= 2;
                 return c / 2 * (t * t * t + 2) + b;
             }
-            
+
             requestAnimationFrame(animation);
         }
     });
@@ -415,10 +418,10 @@ function measureFPS() {
     const currentTime = performance.now();
     fps = Math.round(1000 / (currentTime - lastTime));
     lastTime = currentTime;
-    
+
     // Log FPS ogni 2 secondi (solo in development)
     // console.log('FPS:', fps);
-    
+
     requestAnimationFrame(measureFPS);
 }
 
@@ -436,7 +439,7 @@ if ('IntersectionObserver' in window) {
             }
         });
     });
-    
+
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
@@ -452,7 +455,7 @@ const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLe
 document.addEventListener('keydown', (e) => {
     konamiCode.push(e.key);
     konamiCode = konamiCode.slice(-10);
-    
+
     if (konamiCode.join('') === konamiSequence.join('')) {
         document.body.style.animation = 'rainbowBackground 2s ease infinite';
         setTimeout(() => {
@@ -552,12 +555,12 @@ let currentTestimonial = 0;
 
 const rotateTestimonials = () => {
     testimonialCards.forEach((card, index) => {
-        card.style.transform = index === currentTestimonial 
-            ? 'scale(1.05) translateY(-10px)' 
+        card.style.transform = index === currentTestimonial
+            ? 'scale(1.05) translateY(-10px)'
             : 'scale(1) translateY(0)';
         card.style.opacity = index === currentTestimonial ? '1' : '0.7';
     });
-    
+
     currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
 };
 
@@ -570,7 +573,7 @@ if (testimonialCards.length > 0) {
 document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
-    
+
     // Parallax for floating cards
     const floatingCards = document.querySelectorAll('.floating-card');
     floatingCards.forEach((card, index) => {
@@ -579,7 +582,7 @@ document.addEventListener('mousemove', (e) => {
         const y = (mouseY - 0.5) * speed;
         card.style.transform = `translate(${x}px, ${y}px)`;
     });
-    
+
     // Parallax for gradient orbs
     const orbs = document.querySelectorAll('.gradient-orb');
     orbs.forEach((orb, index) => {
@@ -607,15 +610,15 @@ revealSections.forEach(section => sectionObserver.observe(section));
 const socialFeedScroll = document.getElementById('socialFeedScroll');
 if (socialFeedScroll) {
     console.log('🔄 Initializing seamless infinite scroll...');
-    
+
     // Wait for DOM to be fully loaded
     setTimeout(() => {
         // Clone all posts to create seamless loop
         const posts = Array.from(socialFeedScroll.children);
         console.log(`📝 Found ${posts.length} posts, cloning for infinite scroll...`);
-        
+
         const clonedPosts = posts.map(post => post.cloneNode(true));
-        
+
         // Append cloned posts for infinite scroll
         clonedPosts.forEach(clone => {
             socialFeedScroll.appendChild(clone);
@@ -624,7 +627,7 @@ if (socialFeedScroll) {
         let scrollPosition = 0;
         let isScrolling = true;
         let scrollSpeed = 0.5; // Velocità ottimale per smooth scroll
-        
+
         // Calculate original content height (before cloning)
         let originalHeight = 0;
         posts.forEach(post => {
@@ -633,7 +636,7 @@ if (socialFeedScroll) {
             const style = window.getComputedStyle(post);
             originalHeight += parseInt(style.marginBottom) || 0;
         });
-        
+
         console.log(`📏 Original height: ${originalHeight}px`);
         console.log(`📏 Total height: ${socialFeedScroll.scrollHeight}px`);
 
@@ -641,13 +644,13 @@ if (socialFeedScroll) {
         function autoScroll() {
             if (isScrolling) {
                 scrollPosition += scrollSpeed;
-                
+
                 // Reset seamlessly when reaching the end of original posts
                 if (scrollPosition >= originalHeight) {
                     scrollPosition = 0;
                     console.log('🔁 Loop reset');
                 }
-                
+
                 socialFeedScroll.scrollTop = scrollPosition;
             }
             requestAnimationFrame(autoScroll);
@@ -694,7 +697,7 @@ if (socialFeedScroll) {
             if (match) {
                 let value = parseFloat(match[0].replace('K', ''));
                 const isK = match[0].includes('K');
-                
+
                 if (isK) {
                     value += 0.1;
                     stat.textContent = stat.textContent.replace(/[\d.]+K/, value.toFixed(1) + 'K');
@@ -721,13 +724,13 @@ if (socialFeedScroll) {
 const techItems = document.querySelectorAll('.tech-item');
 
 techItems.forEach(item => {
-    item.addEventListener('mouseenter', function() {
+    item.addEventListener('mouseenter', function () {
         const icon = this.querySelector('.tech-icon');
         icon.style.transform = 'scale(1.3) rotate(360deg)';
         icon.style.transition = 'transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
     });
-    
-    item.addEventListener('mouseleave', function() {
+
+    item.addEventListener('mouseleave', function () {
         const icon = this.querySelector('.tech-icon');
         icon.style.transform = 'scale(1) rotate(0deg)';
     });
@@ -738,16 +741,16 @@ const contactForm = document.querySelector('.contact-form');
 
 if (contactForm) {
     const inputs = contactForm.querySelectorAll('input, textarea');
-    
+
     inputs.forEach(input => {
-        input.addEventListener('focus', function() {
+        input.addEventListener('focus', function () {
             this.parentElement.style.transform = 'scale(1.02)';
             this.parentElement.style.transition = 'transform 0.3s ease';
         });
-        
-        input.addEventListener('blur', function() {
+
+        input.addEventListener('blur', function () {
             this.parentElement.style.transform = 'scale(1)';
-            
+
             // Validation feedback
             if (this.value.trim() !== '') {
                 this.style.borderColor = 'rgba(20, 184, 166, 0.5)';
@@ -755,32 +758,32 @@ if (contactForm) {
                 this.style.borderColor = 'rgba(239, 68, 68, 0.5)';
             }
         });
-        
-        input.addEventListener('input', function() {
+
+        input.addEventListener('input', function () {
             if (this.value.trim() !== '') {
                 this.style.borderColor = 'rgba(184, 134, 11, 0.5)';
             }
         });
     });
-    
+
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form values
         const nameInput = contactForm.querySelector('input[placeholder="Nome"]');
         const emailInput = contactForm.querySelector('input[placeholder="Email"]');
         const companyInput = contactForm.querySelector('input[placeholder="Azienda"]');
         const messageInput = contactForm.querySelector('textarea');
-        
+
         const name = nameInput ? nameInput.value : '';
         const email = emailInput ? emailInput.value : '';
         const company = companyInput ? companyInput.value : '';
         const message = messageInput ? messageInput.value : '';
-        
+
         // Construct mailto link
         const subject = `Nuovo Contatto dal Sito: ${name}`;
         const body = `Nome: ${name}%0D%0AEmail: ${email}%0D%0AAzienda: ${company}%0D%0A%0D%0AMessaggio:%0D%0A${message}`;
-        
+
         // Open default mail client
         window.location.href = `mailto:webnovis.info@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
 
@@ -788,7 +791,7 @@ if (contactForm) {
         const button = contactForm.querySelector('button[type="submit"]');
         button.innerHTML = '<span>✓ Inviato!</span>';
         button.style.background = 'linear-gradient(135deg, #14b8a6, #10b981)';
-        
+
         setTimeout(() => {
             button.innerHTML = '<span>Invia Messaggio</span>';
             button.style.background = '';
@@ -803,7 +806,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'h' || e.key === 'H') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
+
     // Press 'C' to go to contact
     if (e.key === 'c' || e.key === 'C') {
         const contactSection = document.getElementById('contatti');
@@ -821,7 +824,7 @@ const colorObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const sectionClass = entry.target.className;
-            
+
             if (sectionClass.includes('hero')) {
                 body.style.background = 'var(--dark)';
             } else if (sectionClass.includes('triade')) {
@@ -837,7 +840,7 @@ bodySections.forEach(section => colorObserver.observe(section));
 const createTypingEffect = (element, text, speed = 100) => {
     let i = 0;
     element.textContent = '';
-    
+
     const type = () => {
         if (i < text.length) {
             element.textContent += text.charAt(i);
@@ -845,7 +848,7 @@ const createTypingEffect = (element, text, speed = 100) => {
             setTimeout(type, speed);
         }
     };
-    
+
     type();
 };
 
@@ -857,10 +860,10 @@ buttons.forEach(button => {
         const rect = button.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        
+
         button.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
     });
-    
+
     button.addEventListener('mouseleave', () => {
         button.style.transform = 'translate(0, 0)';
     });
@@ -911,18 +914,18 @@ const typeCode = () => {
     const codeContent = document.getElementById('codeContent');
     const typingArea = codeContent?.querySelector('.code-typing-area');
     const cursor = codeContent?.querySelector('.code-cursor');
-    
+
     if (!typingArea || isTyping) return;
-    
+
     isTyping = true;
-    
+
     const typeCharacter = () => {
         if (codeIndex < codeToType.length) {
             const char = codeToType[codeIndex];
-            
+
             // Aggiungi il carattere
             const currentText = typingArea.innerHTML;
-            
+
             if (char === '\n') {
                 typingArea.innerHTML = currentText + '\n';
                 lineNumber++;
@@ -931,24 +934,24 @@ const typeCode = () => {
                 const coloredChar = colorSyntax(char, codeToType.substring(0, codeIndex));
                 typingArea.innerHTML = currentText + coloredChar;
             }
-            
+
             codeIndex++;
-            
+
             // Velocità variabile per effetto più realistico
             const speed = char === '\n' ? 100 : (Math.random() * 50 + 30);
-            
+
             // Scroll automatico
             if (codeContent) {
                 codeContent.scrollTop = codeContent.scrollHeight;
             }
-            
+
             setTimeout(typeCharacter, speed);
         } else {
             // Finito di scrivere, rimuovi il cursore dopo un po'
             setTimeout(() => {
                 if (cursor) cursor.style.display = 'none';
             }, 1000);
-            
+
             // Ricomincia dopo una pausa breve - FIX: loop più veloce
             setTimeout(() => {
                 codeIndex = 0;
@@ -961,21 +964,21 @@ const typeCode = () => {
             }, 2000); // Ridotto da 5000ms a 2000ms
         }
     };
-    
+
     typeCharacter();
 };
 
 // Funzione per colorare la sintassi
 const colorSyntax = (char, previousText) => {
     const lastWord = previousText.split(/[\s\n(){}<>[\];,.]/).pop() + char;
-    
+
     // Keywords
     const keywords = ['import', 'from', 'function', 'return', 'const', 'let', 'var', 'export', 'default', 'className', 'key'];
     // Componenti React
     const components = ['React', 'Performance', 'SEO', 'Design', 'ServiceCard'];
     // Valori
     const values = ['true', 'false', 'null', 'undefined'];
-    
+
     if (keywords.some(kw => lastWord.includes(kw))) {
         return `<span style="color: #ec4899">${char}</span>`;
     } else if (components.some(comp => lastWord.includes(comp))) {
@@ -989,7 +992,7 @@ const colorSyntax = (char, previousText) => {
     } else if (char === '/' && previousText.slice(-1) === '/') {
         return `<span style="color: #64748b">${char}</span>`;
     }
-    
+
     return char;
 };
 
@@ -1047,12 +1050,12 @@ const monitorPerformance = () => {
     const delta = currentTime - lastFrameTime;
     currentFps = Math.round(1000 / delta);
     lastFrameTime = currentTime;
-    
+
     // Log performance warnings
     if (currentFps < 30) {
         console.warn('Low FPS detected:', currentFps);
     }
-    
+
     requestAnimationFrame(monitorPerformance);
 };
 
@@ -1122,8 +1125,8 @@ function initChat() {
     const chatMessages = document.getElementById('chatMessages');
     const fabNotification = document.querySelector('.fab-notification');
 
-    console.log('🔍 Chat elements check:', { 
-        chatButton: chatButton ? '✅ Found' : '❌ Not found', 
+    console.log('🔍 Chat elements check:', {
+        chatButton: chatButton ? '✅ Found' : '❌ Not found',
         chatPopup: chatPopup ? '✅ Found' : '❌ Not found',
         chatClose: chatClose ? '✅ Found' : '❌ Not found',
         chatInput: chatInput ? '✅ Found' : '❌ Not found',
@@ -1135,35 +1138,35 @@ function initChat() {
     if (chatButton) {
         chatButton.style.outline = '2px solid red';
         console.log('🎯 FAB button position:', chatButton.getBoundingClientRect());
-        
+
         // Test diretto - forza il click handler
-        chatButton.onclick = function(e) {
+        chatButton.onclick = function (e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const isActive = chatPopup.classList.contains('active');
             console.log('🖱️ Chat button clicked! Current state:', isActive ? 'open' : 'closed');
-            
+
             chatPopup.classList.toggle('active');
-            
+
             console.log('📱 New state:', chatPopup.classList.contains('active') ? 'open' : 'closed');
-            
+
             // Nascondi notifica quando apri la chat
             if (chatPopup.classList.contains('active') && fabNotification) {
                 fabNotification.style.display = 'none';
             }
-            
+
             // Focus sull'input quando si apre
             if (chatPopup.classList.contains('active') && chatInput) {
                 setTimeout(() => chatInput.focus(), 300);
             }
         };
-        
+
         console.log('✅ Chat onclick handler attached');
     } else {
         console.error('❌ Chat button not found!');
     }
-    
+
     if (!chatPopup) {
         console.error('❌ Chat popup not found!');
         return; // Exit if popup not found
@@ -1179,18 +1182,18 @@ function initChat() {
     // Send message function
     const sendMessage = () => {
         const message = chatInput.value.trim();
-        
+
         if (message === '') return;
-        
+
         // Aggiungi messaggio utente
         addUserMessage(message);
-        
+
         // Pulisci input
         chatInput.value = '';
-        
+
         // Mostra typing indicator
         showTypingIndicator();
-        
+
         // Simula risposta dopo 1-2 secondi
         setTimeout(() => {
             hideTypingIndicator();
@@ -1212,12 +1215,12 @@ function initChat() {
                 sendMessage();
             }
         });
-        
+
         // Previeni scroll della pagina quando si digita nella chat
         chatInput.addEventListener('keydown', (e) => {
             e.stopPropagation();
         });
-        
+
         chatInput.addEventListener('input', (e) => {
             e.stopPropagation();
         });
@@ -1230,7 +1233,7 @@ function initChat() {
             const message = button.dataset.message;
             chatInput.value = message;
             sendMessage();
-            
+
             // Rimuovi i quick replies dopo il primo click
             const quickRepliesContainer = document.querySelector('.chat-quick-replies');
             if (quickRepliesContainer) {
@@ -1242,44 +1245,44 @@ function initChat() {
 
     // Add user message to chat
     const addUserMessage = (message) => {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'chat-message user-message';
-    messageDiv.innerHTML = `
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'chat-message user-message';
+        messageDiv.innerHTML = `
         <div class="message-avatar">TU</div>
         <div class="message-content">
             <p>${escapeHtml(message)}</p>
             <span class="message-time">Ora</span>
         </div>
     `;
-    
-    chatMessages.appendChild(messageDiv);
-    scrollToBottom();
-};
 
-// Add bot response
-const addBotResponse = (userMessage) => {
-    const response = getBotResponse(userMessage);
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'chat-message bot-message';
-    messageDiv.innerHTML = `
+        chatMessages.appendChild(messageDiv);
+        scrollToBottom();
+    };
+
+    // Add bot response
+    const addBotResponse = (userMessage) => {
+        const response = getBotResponse(userMessage);
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'chat-message bot-message';
+        messageDiv.innerHTML = `
         <div class="message-avatar">WN</div>
         <div class="message-content">
             <p>${response}</p>
             <span class="message-time">Ora</span>
         </div>
     `;
-    
-    chatMessages.appendChild(messageDiv);
-    scrollToBottom();
-};
 
-// Show typing indicator
-const showTypingIndicator = () => {
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'chat-message bot-message typing-indicator';
-    typingDiv.id = 'typingIndicator';
-    typingDiv.innerHTML = `
+        chatMessages.appendChild(messageDiv);
+        scrollToBottom();
+    };
+
+    // Show typing indicator
+    const showTypingIndicator = () => {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chat-message bot-message typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.innerHTML = `
         <div class="message-avatar">WN</div>
         <div class="message-content">
             <div class="typing-dot"></div>
@@ -1287,78 +1290,78 @@ const showTypingIndicator = () => {
             <div class="typing-dot"></div>
         </div>
     `;
-    
-    chatMessages.appendChild(typingDiv);
-    scrollToBottom();
-};
 
-// Hide typing indicator
-const hideTypingIndicator = () => {
-    const typingIndicator = document.getElementById('typingIndicator');
-    if (typingIndicator) {
-        typingIndicator.remove();
-    }
-};
+        chatMessages.appendChild(typingDiv);
+        scrollToBottom();
+    };
 
-// Scroll to bottom of chat - FIX: usa smooth scroll e previeni scroll della pagina
-const scrollToBottom = () => {
-    if (chatMessages) {
-        requestAnimationFrame(() => {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        });
-    }
-};
-
-// Get bot response based on user message
-const getBotResponse = (message) => {
-    const lowerMessage = message.toLowerCase();
-    
-    // Risposte predefinite
-    if (lowerMessage.includes('servizi') || lowerMessage.includes('info')) {
-        return 'Offriamo tre servizi principali: 🌐 Web Development, 🎨 Graphic Design e 📱 Social Media Management. Quale ti interessa di più?';
-    } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
-        return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o chiamarci direttamente. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
-    } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
-        return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o chiamarci. Il nostro team è sempre disponibile!';
-    } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
-        return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
-    } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
-        return 'Creiamo identità visive complete: logo, branding, materiale pubblicitario e molto altro. Il design è la nostra passione! ✨';
-    } else if (lowerMessage.includes('social') || lowerMessage.includes('instagram') || lowerMessage.includes('facebook')) {
-        return 'Gestiamo i tuoi social media con strategie mirate, contenuti di qualità e campagne pubblicitarie ottimizzate. Facciamo crescere il tuo brand! 📱';
-    } else if (lowerMessage.includes('contatto') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
-        return 'Puoi contattarci via email a webnovis.info@gmail.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
-    } else if (lowerMessage.includes('ciao') || lowerMessage.includes('salve') || lowerMessage.includes('buongiorno')) {
-        return 'Ciao! 👋 Benvenuto su WebNovis. Come posso aiutarti oggi?';
-    } else if (lowerMessage.includes('grazie')) {
-        return 'Prego! È stato un piacere aiutarti. Se hai altre domande, sono qui! 😊';
-    } else {
-        return 'Interessante! Per informazioni più dettagliate, ti consiglio di contattarci direttamente. Il nostro team sarà felice di rispondere a tutte le tue domande! 💬';
-    }
-};
-
-// Escape HTML to prevent XSS
-const escapeHtml = (text) => {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-};
-
-// Close chat when clicking outside
-document.addEventListener('click', (e) => {
-    if (chatPopup && chatPopup.classList.contains('active')) {
-        if (!e.target.closest('.chat-popup') && !e.target.closest('#chatButton') && !e.target.closest('.fab-container')) {
-            chatPopup.classList.remove('active');
+    // Hide typing indicator
+    const hideTypingIndicator = () => {
+        const typingIndicator = document.getElementById('typingIndicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
         }
-    }
-});
+    };
 
-// Mostra notifica dopo 5 secondi se la chat non è stata aperta
-setTimeout(() => {
-    if (fabNotification && !chatPopup.classList.contains('active')) {
-        fabNotification.style.display = 'flex';
-    }
-}, 5000);
+    // Scroll to bottom of chat - FIX: usa smooth scroll e previeni scroll della pagina
+    const scrollToBottom = () => {
+        if (chatMessages) {
+            requestAnimationFrame(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        }
+    };
+
+    // Get bot response based on user message
+    const getBotResponse = (message) => {
+        const lowerMessage = message.toLowerCase();
+
+        // Risposte predefinite
+        if (lowerMessage.includes('servizi') || lowerMessage.includes('info')) {
+            return 'Offriamo tre servizi principali: 🌐 Web Development, 🎨 Graphic Design e 📱 Social Media Management. Quale ti interessa di più?';
+        } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
+            return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o chiamarci direttamente. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
+        } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
+            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o chiamarci. Il nostro team è sempre disponibile!';
+        } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
+            return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
+        } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
+            return 'Creiamo identità visive complete: logo, branding, materiale pubblicitario e molto altro. Il design è la nostra passione! ✨';
+        } else if (lowerMessage.includes('social') || lowerMessage.includes('instagram') || lowerMessage.includes('facebook')) {
+            return 'Gestiamo i tuoi social media con strategie mirate, contenuti di qualità e campagne pubblicitarie ottimizzate. Facciamo crescere il tuo brand! 📱';
+        } else if (lowerMessage.includes('contatto') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
+            return 'Puoi contattarci via email a webnovis.info@gmail.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
+        } else if (lowerMessage.includes('ciao') || lowerMessage.includes('salve') || lowerMessage.includes('buongiorno')) {
+            return 'Ciao! 👋 Benvenuto su WebNovis. Come posso aiutarti oggi?';
+        } else if (lowerMessage.includes('grazie')) {
+            return 'Prego! È stato un piacere aiutarti. Se hai altre domande, sono qui! 😊';
+        } else {
+            return 'Interessante! Per informazioni più dettagliate, ti consiglio di contattarci direttamente. Il nostro team sarà felice di rispondere a tutte le tue domande! 💬';
+        }
+    };
+
+    // Escape HTML to prevent XSS
+    const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    };
+
+    // Close chat when clicking outside
+    document.addEventListener('click', (e) => {
+        if (chatPopup && chatPopup.classList.contains('active')) {
+            if (!e.target.closest('.chat-popup') && !e.target.closest('#chatButton') && !e.target.closest('.fab-container')) {
+                chatPopup.classList.remove('active');
+            }
+        }
+    });
+
+    // Mostra notifica dopo 5 secondi se la chat non è stata aperta
+    setTimeout(() => {
+        if (fabNotification && !chatPopup.classList.contains('active')) {
+            fabNotification.style.display = 'flex';
+        }
+    }, 5000);
 
     console.log('%c💬 Chat System Loaded', 'color: #10b981; font-weight: bold;');
 }

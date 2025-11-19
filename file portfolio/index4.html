@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopBlock Creative Studio | Branding Audace e Pop</title>
+    <meta name="description" content="PopBlock rompe le regole con colori audaci e stile brutalista. Un esempio di branding d'impatto e web design creativo nel portfolio WebNovis.">
+    
+    <!-- Google Fonts: Unbounded (Titoli larghi) e Space Mono (Testo tecnico) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Unbounded:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CONFIGURAZIONE STILE --- */
+        :root {
+            --bg: #fffcf2;        /* Crema chiarissimo */
+            --ink: #1a1a1a;       /* Nero inchiostro */
+            --white: #ffffff;
+            
+            /* Accenti Pop */
+            --purple: #a390e4;
+            --green: #9bf6ff;
+            --pink: #ffadad;
+            --yellow: #fdffb6;
+
+            --border: 3px solid var(--ink);
+            --shadow: 6px 6px 0px var(--ink);
+            --shadow-hover: 2px 2px 0px var(--ink);
+            
+            --font-display: 'Unbounded', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-mono);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+
+        /* --- COMPONENTI UI --- */
+        .btn {
+            display: inline-block;
+            background: var(--white);
+            border: var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.1s ease;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+        }
+
+        .btn:active, .btn.clicked {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+        }
+
+        .btn:hover {
+            background-color: var(--yellow);
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--ink);
+            color: var(--white);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- LAYOUT HEADER --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: var(--border);
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            position: relative;
+            font-weight: 700;
+        }
+
+        .nav-links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background: var(--ink);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 6rem 2rem;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 2rem;
+        }
+
+        .hero-content h1 span {
+            background-color: var(--green);
+            padding: 0 0.5rem;
+            border: 2px solid transparent; /* Placeholder */
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-card {
+            background: var(--purple);
+            border: var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .hero-card:hover {
+            transform: rotate(2deg) scale(1.02);
+        }
+
+        .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: multiply; /* Fonde l'immagine col viola */
+        }
+
+        /* Elemento decorativo flottante */
+        .sticker {
+            position: absolute;
+            top: -10%; right: -10%;
+            background: var(--pink);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            transform: rotate(15deg);
+            animation: float 6s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(15deg) translate(0, 0); }
+            50% { transform: rotate(15deg) translate(0, -15px); }
+        }
+
+        /* --- MARQUEE INFINITO --- */
+        .marquee {
+            border-top: var(--border);
+            border-bottom: var(--border);
+            background: var(--yellow);
+            padding: 1.5rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transform: rotate(-1deg) scale(1.02); /* Leggera inclinazione ribelle */
+        }
+
+        .marquee-inner {
+            display: inline-block;
+            animation: slideLeft 15s linear infinite;
+        }
+
+        .marquee span {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 2rem;
+            margin-right: 3rem;
+            -webkit-text-stroke: 1px var(--ink);
+            color: transparent; /* Testo vuoto col bordo */
+        }
+        
+        .marquee span.filled {
+            color: var(--ink);
+            -webkit-text-stroke: 0;
+        }
+
+        @keyframes slideLeft {
+            to { transform: translateX(-50%); }
+        }
+
+        /* --- STICKY SECTION --- */
+        .sticky-container {
+            max-width: 1200px;
+            margin: 8rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+        }
+
+        .sticky-text {
+            position: sticky;
+            top: 150px;
+            height: fit-content;
+        }
+
+        .sticky-text h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            border: var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translate(4px, 4px);
+        }
+
+        .p-img {
+            height: 300px;
+            width: 100%;
+            border-bottom: var(--border);
+        }
+        
+        .p-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .p-info {
+            padding: 2rem;
+        }
+
+        .p-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--ink);
+            color: var(--bg);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-big {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 10vw, 8rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+            color: var(--green);
+        }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; }
+            .sticky-container { grid-template-columns: 1fr; }
+            .sticky-text { position: static; margin-bottom: 3rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">POPBLOCK.</div>
+        <div class="nav-links">
+            <a href="#">Lavori</a>
+            <a href="#">Studio</a>
+            <a href="#">Shop</a>
+        </div>
+        <a href="#" class="btn">Contattaci</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="tag">EST. 2024</span>
+            <h1>PopBlock Studio: <br><span>CREIAMO IMPATTO.</span></h1>
+            <p style="margin-bottom: 2rem; max-width: 400px;">Un'agenzia digitale che rompe le regole. Colori audaci, griglie solide e nessuna paura di osare.</p>
+            <div style="display: flex; gap: 1rem;">
+                <a href="#" class="btn">Vedi Progetti</a>
+                <a href="#" class="btn" style="background: var(--pink);">Showreel</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" alt="PopBlock Studio Portrait">
+            </div>
+            <div class="sticker">NUOVO<br>DROP</div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-inner">
+            <span>BRANDING</span> <span class="filled">STRATEGY</span> 
+            <span>WEB DESIGN</span> <span class="filled">DEVELOPMENT</span>
+            <span>BRANDING</span> <span class="filled">STRATEGY</span> 
+            <span>WEB DESIGN</span> <span class="filled">DEVELOPMENT</span>
+        </div>
+    </div>
+
+    <!-- Sticky Scroll Section -->
+    <section class="sticky-container">
+        <div class="sticky-text">
+            <h2>Selected Works</h2>
+            <p>Scorri per esplorare la nostra galleria di successi digitali. Ogni progetto è una battaglia vinta contro la noia.</p>
+            <br>
+            <div class="tag">SCROLL DOWN ↓</div>
+        </div>
+
+        <div class="project-list">
+            <!-- Project 1 -->
+            <article class="project-card">
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1605106702734-205df224ecce?q=80&w=2070&auto=format&fit=crop" alt="Retro Future Branding">
+                </div>
+                <div class="p-info">
+                    <h3>Retro Future</h3>
+                    <p>Rebranding per una catena di fast food vegani.</p>
+                </div>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card">
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Liquid Dreams App Design">
+                </div>
+                <div class="p-info" style="background: var(--yellow);">
+                    <h3>Liquid Dreams</h3>
+                    <p>App mobile per meditazione psichedelica.</p>
+                </div>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card">
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop" alt="Neon City Campaign">
+                </div>
+                <div class="p-info" style="background: var(--green);">
+                    <h3>Neon City</h3>
+                    <p>Campagna social per un festival di musica elettronica.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-big">PARLIAMO.</div>
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem;">
+            <a href="#" style="border-bottom: 1px solid var(--green);">Instagram</a>
+            <a href="#" style="border-bottom: 1px solid var(--green);">Twitter</a>
+            <a href="#" style="border-bottom: 1px solid var(--green);">Email</a>
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.5;">© 2024 PopBlock Studio. Made on Earth.</p>
+    </footer>
+
+    <script>
+        // Semplice script per effetto 'click' sui bottoni
+        const btns = document.querySelectorAll('.btn');
+        
+        btns.forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('clicked'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('clicked'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('clicked'));
+        });
+
+        // Rotazione dinamica dello sticker allo scroll
+        const sticker = document.querySelector('.sticker');
+        window.addEventListener('scroll', () => {
+            const rotation = window.scrollY / 5 + 15;
+            sticker.style.transform = `rotate(${rotation}deg)`;
+        });
+    </script>
+</body>
+</html>

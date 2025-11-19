@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aether Digital Experience | Web Design Futuristico</title>
+    <meta name="description" content="Scopri Aether, un'esperienza digitale immersiva creata da WebNovis. Design futuristico, animazioni fluide e interfacce web innovative per brand visionari.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CONFIGURAZIONE --- */
+        :root {
+            --bg: #050505;
+            --fg: #ffffff;
+            --accent: #d4ff00; /* Un verde acido molto moderno */
+            --gray: #333;
+            --glass: rgba(255, 255, 255, 0.05);
+            --font-body: 'Manrope', sans-serif;
+            --font-title: 'Syne', sans-serif;
+        }
+
+        /* Nasconde il cursore di default ovunque */
+        body, a, button, input {
+            cursor: none !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- NOISE OVERLAY (Effetto Grana) --- */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9000;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* --- CURSORI PERSONALIZZATI --- */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--fg);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Stato Hover del cursore */
+        body.hovering .cursor-outline {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: transparent;
+            backdrop-filter: blur(2px);
+        }
+        
+        body.hovering .cursor-dot {
+            opacity: 0; /* Nasconde il punto interno durante l'hover */
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            padding: 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference; /* Rende il menu leggibile su sfondi chiari */
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--fg);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column; /* Cambiato in colonna */
+            justify-content: center; /* Centra verticalmente */
+            align-items: center; /* Centra orizzontalmente */
+            position: relative;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: var(--font-title);
+            font-size: clamp(4rem, 12vw, 10rem);
+            line-height: 0.9;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 2rem; /* Spazio per il sottotitolo */
+            width: 100%;
+        }
+
+        h1 span {
+            display: block;
+            overflow: hidden;
+        }
+        
+        h1 span span {
+            display: block;
+            transform: translateY(100%);
+            animation: slideUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        h1 span:nth-child(2) span { animation-delay: 0.1s; }
+        h1 span:nth-child(3) span { animation-delay: 0.2s; }
+
+        .hero-sub {
+            position: relative; /* Nel flusso normale */
+            bottom: auto;
+            right: auto;
+            max-width: 600px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .hero-sub p {
+            color: #e0e0e0; /* Aumentato contrasto da #888 */
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .btn-glow {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--fg);
+            color: var(--bg);
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .btn-glow:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+        }
+
+        /* MARQUEE (Testo scorrevole) */
+        .marquee-section {
+            padding: 6rem 0;
+            background: var(--fg);
+            color: var(--bg);
+            overflow: hidden;
+            transform: rotate(-2deg) scale(1.05); /* Leggera inclinazione stilosa */
+        }
+
+        .marquee-track {
+            display: flex;
+            white-space: nowrap;
+            gap: 4rem;
+            animation: scrollText 20s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: var(--font-title);
+            font-size: 5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* SERVICES LIST */
+        .services {
+            padding: 10rem 0;
+        }
+        
+        .service-item {
+            border-top: 1px solid #333;
+            padding: 3rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .service-item:last-child { border-bottom: 1px solid #333; }
+
+        .service-item h2 {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            font-weight: 700;
+            transition: transform 0.3s, color 0.3s;
+        }
+        
+        .service-item span {
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        /* Effetto Hover sulla lista: gli altri si scuriscono */
+        .services:hover .service-item {
+            opacity: 0.3;
+        }
+        .services .service-item:hover {
+            opacity: 1;
+        }
+        .services .service-item:hover h2 {
+            transform: translateX(20px);
+            color: var(--accent);
+        }
+
+        /* CARDS / WORK */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+            padding-bottom: 10rem;
+        }
+
+        .work-card {
+            position: relative;
+            display: block;
+        }
+
+        .work-card:nth-child(even) {
+            transform: translateY(80px); /* Effetto sfalsato */
+        }
+
+        .img-container {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(100%);
+        }
+
+        .work-card:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .work-info h3 {
+            font-size: 2rem;
+            font-family: var(--font-title);
+            margin-bottom: 0.5rem;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 8rem 0 4rem 0;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .big-link {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 8vw, 6rem); /* Ridotto per evitare overflow */
+            font-weight: 800;
+            color: var(--fg);
+            text-decoration: none;
+            display: inline-block;
+            line-height: 1;
+            margin-bottom: 4rem;
+            transition: color 0.3s;
+            max-width: 100%;
+            word-break: break-word;
+        }
+
+        .big-link:hover {
+            color: var(--accent);
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* ANIMAZIONI UTILI */
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 768px) {
+            .work-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .work-card:nth-child(even) { transform: none; }
+            .service-item h2 { font-size: 2rem; }
+            /* Su mobile riattiviamo il cursore nativo per usabilità */
+            body, a, button { cursor: auto !important; }
+            .cursor-dot, .cursor-outline { display: none; }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Noise Texture -->
+    <div class="noise"></div>
+
+    <!-- Doppio Cursore -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo" data-hover>AETHER©</div>
+            <nav>
+                <ul>
+                    <li><a href="#" data-hover>Progetti</a></li>
+                    <li><a href="#" data-hover>Agenzia</a></li>
+                    <li><a href="#" data-hover>Visione</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>
+                <span><span>Aether</span></span>
+                <span><span>Digital</span></span>
+                <span><span>Experience</span></span>
+            </h1>
+            <div class="hero-sub">
+                <p>Trasformiamo il codice in emozioni. Un'agenzia creativa dedicata a ridefinire i confini del web design futuristico e immersivo.</p>
+                <a href="#" class="btn-glow" data-hover>Inizia il Viaggio</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Marquee Section -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-item">Strategy — Design — Development — </div>
+            <div class="marquee-item">Strategy — Design — Development — </div>
+            <div class="marquee-item">Strategy — Design — Development — </div>
+            <div class="marquee-item">Strategy — Design — Development — </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Services List -->
+        <section class="services">
+            <div class="service-item" data-hover>
+                <h2>Brand Identity</h2>
+                <span>01</span>
+            </div>
+            <div class="service-item" data-hover>
+                <h2>Web Development</h2>
+                <span>02</span>
+            </div>
+            <div class="service-item" data-hover>
+                <h2>Art Direction</h2>
+                <span>03</span>
+            </div>
+            <div class="service-item" data-hover>
+                <h2>Motion Design</h2>
+                <span>04</span>
+            </div>
+        </section>
+
+        <!-- Work Grid -->
+        <section class="work-grid">
+            <a href="#" class="work-card" data-hover>
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1492551557933-34265f7af79e?q=80&w=2560&auto=format&fit=crop" alt="Progetto Cyber Punk Web Design">
+                </div>
+                <div class="work-info">
+                    <h3>Cyber Punk</h3>
+                    <p style="color:#888">Web Design / 2023</p>
+                </div>
+            </a>
+
+            <a href="#" class="work-card" data-hover>
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=2487&auto=format&fit=crop" alt="Progetto Neon Lights Photography">
+                </div>
+                <div class="work-info">
+                    <h3>Neon Lights</h3>
+                    <p style="color:#888">Photography / 2023</p>
+                </div>
+            </a>
+        </section>
+
+        <footer>
+            <p style="margin-bottom: 1rem; color: #666;">Hai un'idea?</p>
+            <a href="mailto:hello@aether.com" class="big-link" data-hover>PARLIAMONE</a>
+            
+            <div class="footer-meta">
+                <span>Milano, Italia</span>
+                <span>© 2023 Aether Agency</span>
+                <span>Privacy Policy</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- LOGICA CURSORE AVANZATA ---
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorOutline = document.getElementById("cursor-outline");
+
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        // Coordinate "ritardate" per il cerchio grande
+        let outlineX = 0;
+        let outlineY = 0;
+
+        // Aggiorna posizione mouse al movimento
+        document.addEventListener("mousemove", (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Il punto centrale si muove istantaneamente
+            // Usiamo translate3d per performance hardware
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        });
+
+        // Funzione di animazione fluida (Lerp - Linear Interpolation)
+        const animateCursor = () => {
+            const speed = 0.15; // Più basso = più ritardo (effetto trascinamento)
+            
+            outlineX += (mouseX - outlineX) * speed;
+            outlineY += (mouseY - outlineY) * speed;
+
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+            
+            requestAnimationFrame(animateCursor);
+        };
+        animateCursor();
+
+        // --- GESTIONE HOVER ---
+        // Aggiunge classe al body quando si passa sopra elementi interattivi
+        const hoverables = document.querySelectorAll('[data-hover]');
+
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('hovering');
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('hovering');
+            });
+        });
+    </script>
+</body>
+</html>
