@@ -36,12 +36,12 @@
       "pricing": {
         "logo": {
           "name": "Logo Design",
-          "price": "da €400",
+          "price": "da €150",
           "description": "Design logo professionale con manuale d'uso"
         },
         "brandIdentity": {
           "name": "Brand Identity Completa",
-          "price": "da €1.500",
+          "price": "da €450",
           "description": "Logo, biglietti da visita, carta intestata, palette colori"
         },
         "materialeStampa": {
@@ -57,17 +57,17 @@
       "pricing": {
         "gestioneBase": {
           "name": "Social Start",
-          "price": "da €500/mese",
+          "price": "da €300/mese",
           "description": "Piano editoriale, 8 post/mese, report base"
         },
         "gestionePro": {
           "name": "Social Pro",
-          "price": "da €900/mese",
+          "price": "da €650/mese",
           "description": "12 post + 4 stories/mese, community management, report avanzati"
         },
         "photoVideo": {
           "name": "Shooting Foto/Video",
-          "price": "da €350/sessione",
+          "price": "da €150/sessione",
           "description": "Servizio fotografico professionale, video editing, post-produzione"
         },
         "photoEditing": {
