@@ -21,40 +21,42 @@ const config = JSON.parse(fs.readFileSync('chat-config.json', 'utf8'));
 
 // Crea il system prompt da inviare a ChatGPT
 function createSystemPrompt() {
+    // TOON (Token-Oriented Object Notation) Helper
+    // Ottimizza i dati per risparmiare token e migliorare la comprensione dell'AI
+    const toToon = (obj, indent = 0) => {
+        const spaces = '  '.repeat(indent);
+        let output = '';
+        
+        for (const [key, value] of Object.entries(obj)) {
+            if (key === 'chatbotInstructions') continue; // Salta istruzioni separate
+            
+            // Formatta la chiave (da camelCase a Human Readable)
+            const readableKey = key.replace(/([A-Z])/g, ' $1').toUpperCase();
+            
+            if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                output += `${spaces}${readableKey}:\n${toToon(value, indent + 1)}`;
+            } else if (Array.isArray(value)) {
+                output += `${spaces}${readableKey}:\n`;
+                value.forEach(item => {
+                    if (typeof item === 'object') {
+                        output += `${spaces}  -\n${toToon(item, indent + 2)}`;
+                    } else {
+                        output += `${spaces}  - ${item}\n`;
+                    }
+                });
+            } else {
+                output += `${spaces}${readableKey}: ${value}\n`;
+            }
+        }
+        return output;
+    };
+
     return `${config.chatbotInstructions}
 
-INFORMAZIONI AZIENDA:
-- Nome: ${config.companyInfo.name}
-- Email: ${config.companyInfo.email}
-- Telefono: ${config.companyInfo.phone}
+DATI AZIENDALI (Formato TOON - Strict Data):
+${toToon(config)}
 
-SERVIZI E PREZZI:
-
-1. WEB DEVELOPMENT:
-${Object.entries(config.services.webDevelopment.pricing).map(([key, item]) => 
-    `   - ${item.name}: ${item.price}\n     ${item.description}`
-).join('\n')}
-
-2. GRAPHIC DESIGN:
-${Object.entries(config.services.graphicDesign.pricing).map(([key, item]) => 
-    `   - ${item.name}: ${item.price}\n     ${item.description}`
-).join('\n')}
-
-3. SOCIAL MEDIA MANAGEMENT:
-${Object.entries(config.services.socialMedia.pricing).map(([key, item]) => 
-    `   - ${item.name}: ${item.price}\n     ${item.description}`
-).join('\n')}
-
-PROCESSO:
-${config.process.steps.map((step, i) => `${i + 1}. ${step}`).join('\n')}
-
-TEMPI DI REALIZZAZIONE:
-${Object.entries(config.process.timeline).map(([key, time]) => `- ${key}: ${time}`).join('\n')}
-
-FAQ:
-${config.faq.map(item => `Q: ${item.question}\nA: ${item.answer}`).join('\n\n')}
-
-Usa queste informazioni per rispondere alle domande degli utenti in modo preciso e professionale.`;
+Usa queste informazioni per rispondere. Mantieni un tono professionale ma cordiale.`;
 }
 
 // Endpoint per la chat
