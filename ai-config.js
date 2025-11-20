@@ -1,7 +1,7 @@
 // Configurazione AI per il chatbot
 module.exports = {
     // Modello OpenAI da utilizzare
-    model: 'gpt-5-mini', // Modello richiesto dall'utente
+    model: 'gpt-4o-mini', // Modello economico e veloce (consigliato)
 
     // Altri modelli disponibili (decommentare per usare):
     // model: 'gpt-4o',           // Più intelligente, ~$2.50/1M tokens

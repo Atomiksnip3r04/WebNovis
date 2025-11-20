@@ -59,6 +59,11 @@ ${toToon(config)}
 Usa queste informazioni per rispondere. Mantieni un tono professionale ma cordiale.`;
 }
 
+// Endpoint per il health check (Keep-Alive)
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok', message: 'Server is awake and running! 🚀' });
+});
+
 // Endpoint per la chat
 app.post('/api/chat', async (req, res) => {
     try {
@@ -173,15 +178,14 @@ Quale ti interessa di più? Posso darti maggiori dettagli! ✨`;
     }
     
     if (lowerMessage.includes('contatt') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
-        return `Puoi contattarci in questi modi:
+        return `Puoi contattarci via email:
 
 📧 Email: ${config.companyInfo.email}
-📞 Telefono: ${config.companyInfo.phone}
 
-Oppure compila il form nella sezione contatti del sito. Rispondiamo entro 24 ore! 🚀`;
+Oppure compila il form nella sezione contatti qui sotto. Rispondiamo entro 24 ore! 🚀`;
     }
     
-    return `Grazie per il tuo messaggio! Per informazioni dettagliate sui nostri servizi e prezzi, contattaci a ${config.companyInfo.email} o chiamaci. Il nostro team sarà felice di aiutarti! 💬`;
+    return `Grazie per il tuo messaggio! Per informazioni dettagliate sui nostri servizi e prezzi, scrivici a ${config.companyInfo.email} o compila il form. Il nostro team sarà felice di aiutarti! 💬`;
 }
 
 // Endpoint per ottenere la configurazione (opzionale)

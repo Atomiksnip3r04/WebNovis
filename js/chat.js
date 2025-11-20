@@ -240,9 +240,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (lowerMessage.includes('servizi') || lowerMessage.includes('info')) {
             return 'Offriamo tre servizi principali: 🌐 Web Development, 🎨 Graphic Design e 📱 Social Media Management. Quale ti interessa di più?';
         } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
-            return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o chiamarci direttamente. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
+            return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o scriverci a webnovis.info@gmail.com. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
         } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
-            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o chiamarci. Il nostro team è sempre disponibile!';
+            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o compilare il form. Il nostro team è sempre disponibile!';
         } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
             return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
         } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
@@ -258,6 +258,38 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             return 'Interessante! Per informazioni più dettagliate, ti consiglio di contattarci direttamente. Il nostro team sarà felice di rispondere a tutte le tue domande! 💬';
         }
+    }
+
+    // Keep-Alive System per Render.com
+    // Mantiene il server attivo simulando traffico quando l'utente è sul sito
+    const KEEPALIVE_INTERVAL = 5 * 60 * 1000; // 5 minuti
+    
+    // URL di base per il health check
+    const BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000'
+        : 'https://webnovis-chat.onrender.com'; // Deve corrispondere a PRODUCTION_API_URL base
+
+    setInterval(() => {
+        // Esegui il ping solo se non siamo in locale (o per test se vuoi)
+        if (window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
+            console.log('💓 Sending keep-alive heartbeat...');
+            fetch(`${BASE_URL}/api/health`)
+                .then(res => {
+                    if(res.ok) console.log('💓 Heartbeat success');
+                    else console.warn('💔 Heartbeat returned status:', res.status);
+                })
+                .catch(err => {
+                    // Silenzioso per l'utente, utile per debug
+                    console.warn('💔 Heartbeat failed (server might be sleeping):', err);
+                });
+        }
+    }, KEEPALIVE_INTERVAL);
+
+    // Ping immediato all'avvio per svegliare il server se necessario
+    if (window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
+        setTimeout(() => {
+            fetch(`${BASE_URL}/api/health`).catch(() => {});
+        }, 2000);
     }
 
     function escapeHtml(text) {
