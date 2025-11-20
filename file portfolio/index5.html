@@ -23,14 +23,16 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Nascondiamo la scrollbar nativa per pulizia */
-        ::-webkit-scrollbar { height: 0px; background: transparent; }
+        /* Nascondiamo la scrollbar nativa per pulizia solo su desktop */
+        @media (min-width: 769px) {
+            ::-webkit-scrollbar { height: 0px; background: transparent; }
+        }
 
         body {
             background-color: var(--bg);
             color: var(--ink);
             font-family: var(--font);
-            overflow: hidden; /* Blocchiamo lo scroll nativo del body */
+            overflow: hidden; /* Blocchiamo lo scroll nativo del body su desktop */
             height: 100vh;
             width: 100vw;
             cursor: none; /* Cursore custom */
@@ -67,12 +69,15 @@
             text-transform: uppercase;
             font-size: 0.8rem;
             letter-spacing: 1px;
+            background: transparent;
+            transition: background 0.3s;
         }
-        .fixed-ui.top { top: 0; border-bottom: 1px solid var(--line); background: rgba(230,230,230,0.8); backdrop-filter: blur(5px); }
-        .fixed-ui.bottom { bottom: 0; border-top: 1px solid var(--line); justify-content: space-between; }
+        .fixed-ui.top { top: 0; border-bottom: 1px solid var(--line); background: rgba(230,230,230,0.9); backdrop-filter: blur(5px); }
+        .fixed-ui.bottom { bottom: 0; border-top: 1px solid var(--line); justify-content: space-between; background: rgba(230,230,230,0.9); }
 
         .logo { font-weight: 800; color: var(--accent); pointer-events: auto; }
         .coords { color: #666; }
+        .menu-btn { pointer-events: auto; cursor: pointer; }
 
         /* --- HORIZONTAL CONTAINER --- */
         .scroll-container {
@@ -82,6 +87,7 @@
             overflow-x: auto; /* Abilita lo scroll orizzontale nativo */
             overflow-y: hidden;
             white-space: nowrap;
+            scroll-behavior: smooth;
         }
 
         /* Nascondiamo la scrollbar orizzontale */
@@ -98,6 +104,7 @@
             justify-content: center;
             padding: 6rem 4rem;
             min-width: 600px; /* Larghezza minima pannello */
+            flex-shrink: 0; /* Impedisce restringimento */
         }
 
         /* Pannello 1: Titolo */
@@ -123,6 +130,7 @@
             padding-top: 1rem;
             display: inline-block;
             width: 200px;
+            white-space: normal;
         }
 
         /* Pannello 2: Immagine Full */
@@ -137,6 +145,7 @@
             object-fit: cover;
             filter: grayscale(100%) contrast(1.2);
             transition: filter 0.5s;
+            display: block;
         }
         
         .panel.image-full:hover img {
@@ -148,6 +157,7 @@
             min-width: 700px;
             background: #111;
             color: #e6e6e6;
+            white-space: normal; /* Testo a capo normale */
         }
 
         .panel.text h2 {
@@ -175,6 +185,7 @@
             border-bottom: 1px solid var(--line);
             position: relative;
             overflow: hidden;
+            min-height: 33.33vh;
         }
         
         .gal-item img {
@@ -182,6 +193,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s;
+            display: block;
         }
         
         .gal-item:hover img { transform: scale(1.1); }
@@ -219,17 +231,91 @@
             padding: 0 1rem;
         }
 
-        /* --- MOBILE --- */
-        @media (max-width: 768px) {
-            body { overflow: auto; height: auto; cursor: auto; }
-            .cursor { display: none; }
-            .scroll-container { flex-direction: column; width: 100%; height: auto; }
-            .panel { width: 100% !important; min-width: 0 !important; height: auto; min-height: 80vh; border-right: none; border-bottom: 1px solid var(--line); padding: 4rem 1.5rem;}
-            .panel.intro { padding-top: 8rem; }
-            h1 { font-size: 3.5rem; }
+        /* --- MOBILE ULTRA RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            body { 
+                overflow: auto !important; 
+                height: auto !important; 
+                cursor: auto !important; 
+                overflow-x: hidden !important;
+            }
+            
+            .cursor { display: none !important; }
+            
+            .fixed-ui { position: absolute; } /* Non fisso su mobile per evitare ingombro */
             .fixed-ui.bottom { display: none; }
-            .panel.gallery { display: flex; flex-direction: column; }
-            .gal-item { height: 300px; }
+            
+            .scroll-container {
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: block;
+            }
+
+            .panel { 
+                width: 100% !important; 
+                min-width: 100% !important; 
+                height: auto !important; 
+                min-height: 80vh; 
+                border-right: none; 
+                border-bottom: 1px solid var(--line); 
+                padding: 4rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .panel.intro { 
+                padding-top: 8rem; 
+                min-height: 90vh;
+                justify-content: flex-end;
+            }
+
+            h1 { 
+                font-size: 3rem; 
+                word-break: break-word;
+                line-height: 1.1;
+            }
+
+            .panel.image-full {
+                height: 60vh !important;
+                min-height: 60vh;
+            }
+
+            .panel.text {
+                padding: 3rem 1.5rem;
+            }
+
+            .panel.text h2 {
+                font-size: 2.2rem;
+            }
+            
+            .panel.text p {
+                max-width: 100%;
+                font-size: 1rem;
+            }
+
+            /* Galleria Mobile: Griglia 2x3 o lista */
+            .panel.gallery {
+                display: grid;
+                grid-template-columns: 1fr;
+                min-width: 100% !important;
+                height: auto !important;
+            }
+
+            .gal-item {
+                height: 300px;
+                border-right: none;
+            }
+
+            .panel.outro {
+                min-height: 50vh;
+            }
+
+            .big-link {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -241,8 +327,8 @@
     <!-- UI Fissa -->
     <div class="fixed-ui top">
         <div class="logo">STRUCTURE / 01</div>
-        <div>ARCH. PROJECT 2024</div>
-        <div>[MENU]</div>
+        <div class="desktop-only" style="display: none;">ARCH. PROJECT 2024</div>
+        <div class="menu-btn">[MENU]</div>
     </div>
 
     <div class="fixed-ui bottom">
@@ -257,60 +343,63 @@
         <section class="panel intro">
             <div style="font-size: 0.8rem; margin-bottom: 1rem;">// 001_INDEX</div>
             <h1>Structure<br><span>Architecture_</span></h1>
-            <p style="font-size: 1.5rem; text-transform: uppercase; margin-bottom: 2rem;">Form Follows Function.</p>
+            <p style="font-size: 1.2rem; text-transform: uppercase; margin-bottom: 2rem; opacity: 0.7;">Form Follows Function.</p>
             <div class="meta-data">
                 LOC: TOKYO, JP<br>
                 AREA: 450 SQM<br>
-                STATUS: COMPLETED
+                STATUS: COMPLETED<br>
+                YEAR: 2024
             </div>
         </section>
 
-        <!-- Panel 2: Image -->
+        <!-- Panel 2: Image (New High Quality Image) -->
         <section class="panel image-full">
-            <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=2070&auto=format&fit=crop" alt="Structure Architecture Concrete Detail">
+            <img src="https://images.unsplash.com/photo-1518005052351-4e86fa88e6ee?q=80&w=2069&auto=format&fit=crop" alt="Concrete Architecture Minimalist">
         </section>
 
         <!-- Panel 3: Manifesto -->
         <section class="panel text">
-            <div style="font-size: 0.8rem; margin-bottom: 1rem; color: #666;">// 002_DATA</div>
+            <div style="font-size: 0.8rem; margin-bottom: 1rem; color: #888;">// 002_DATA</div>
             <h2>Raw Materials</h2>
             <p>La verità del materiale non viene mai nascosta. Cemento grezzo, acciaio esposto e vetro temperato creano un dialogo tra la struttura e l'ambiente circostante. Rifiutiamo l'ornamento a favore della pura geometria spaziale.</p>
             <br>
-            <p style="color: var(--accent);">-> READ SPECS</p>
+            <div style="margin-top: 2rem; border: 1px solid var(--accent); padding: 1rem; display: inline-block; color: var(--accent);">
+                TECH_SPECS.PDF ↓
+            </div>
         </section>
 
-        <!-- Panel 4: Gallery Grid -->
+        <!-- Panel 4: Gallery Grid (Updated Images) -->
         <section class="panel gallery">
             <div class="gal-item">
-                <img src="https://images.unsplash.com/photo-1558963820-18921d3e076d?q=80&w=1770&auto=format&fit=crop" alt="Architecture Exterior Detail">
-                <span class="gal-caption">EXTERIOR</span>
+                <img src="https://images.unsplash.com/photo-1486718448742-163732cd1544?q=80&w=1887&auto=format&fit=crop" alt="Architecture Geometric Patterns">
+                <span class="gal-caption">GEOMETRY</span>
             </div>
             <div class="gal-item">
-                <img src="https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop" alt="Architecture Interior Space">
-                <span class="gal-caption">INTERIOR</span>
+                <img src="https://images.unsplash.com/photo-1435575653489-b0873ec954e2?q=80&w=2070&auto=format&fit=crop" alt="Minimalist Interior">
+                <span class="gal-caption">VOID</span>
             </div>
             <div class="gal-item">
-                <img src="https://images.unsplash.com/photo-1535295972055-1c762f4483e5?q=80&w=1887&auto=format&fit=crop" alt="Architectural Detail Concrete">
-                <span class="gal-caption">DETAIL</span>
-            </div>
-            <div class="gal-item">
-                <img src="https://images.unsplash.com/photo-1599841617601-63b4f3699191?q=80&w=1770&auto=format&fit=crop" alt="Architectural Plan Light">
-                <span class="gal-caption">PLAN</span>
-            </div>
-            <div class="gal-item">
-                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1931&auto=format&fit=crop" alt="Light and Shadow Architecture">
+                <img src="https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?q=80&w=2070&auto=format&fit=crop" alt="Shadow Play Architecture">
                 <span class="gal-caption">LIGHT</span>
             </div>
-            <div class="gal-item" style="background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 2rem;">
-                <div style="font-size: 3rem;">+</div>
-                <div>VIEW FULL<br>ARCHIVE</div>
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?q=80&w=2070&auto=format&fit=crop" alt="Concrete Stairs">
+                <span class="gal-caption">CIRCULATION</span>
+            </div>
+            <div class="gal-item">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1887&auto=format&fit=crop" alt="Steel and Glass Detail">
+                <span class="gal-caption">MATERIAL</span>
+            </div>
+            <div class="gal-item" style="background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 2rem; cursor: pointer;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">+</div>
+                <div style="letter-spacing: 2px;">VIEW FULL<br>ARCHIVE</div>
             </div>
         </section>
 
         <!-- Panel 5: Outro -->
         <section class="panel outro">
-            <div style="margin-bottom: 2rem;">READY TO BUILD?</div>
-            <a href="#" class="big-link">CONTACT_US</a>
+            <div style="margin-bottom: 2rem; letter-spacing: 2px;">READY TO BUILD?</div>
+            <a href="mailto:info@webnovis.com" class="big-link">CONTACT_US</a>
         </section>
 
     </div>
@@ -319,40 +408,44 @@
         // --- LOGICA SCROLL ORIZZONTALE ---
         const scrollContainer = document.getElementById("scrollContainer");
         
-        // Trasforma lo scroll della rotellina (verticale) in scroll orizzontale
+        // Trasforma lo scroll della rotellina (verticale) in scroll orizzontale solo su Desktop
         window.addEventListener("wheel", (evt) => {
-            // Solo se schermo largo (desktop)
-            if(window.innerWidth > 768) {
+            // Controllo robusto per device desktop
+            if(window.innerWidth > 1024) {
                 // Se è un mouse verticale (deltaY dominante), lo convertiamo in orizzontale
                 if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
                     scrollContainer.scrollLeft += evt.deltaY;
-                    // evt.preventDefault(); // Rimuoviamo preventDefault per permettere inerzia su alcuni browser, ma attenzione allo scroll verticale della pagina se esistesse. Qui overflow-y è hidden, quindi ok.
+                    // Su desktop puro, blocchiamo lo scroll verticale nativo per forzare quello orizzontale
+                    // evt.preventDefault(); 
                 }
             }
-        });
+        }, { passive: false });
 
         // --- LOGICA CURSORE CROSSHAIR ---
         const cursor = document.getElementById("cursor");
         const coordsDiv = document.querySelector(".coords");
+        const isMobile = window.matchMedia("(max-width: 1024px)").matches;
 
-        document.addEventListener("mousemove", (e) => {
-            // Muove il cursore
-            cursor.style.left = e.clientX + "px";
-            cursor.style.top = e.clientY + "px";
+        if (!isMobile) {
+            document.addEventListener("mousemove", (e) => {
+                // Muove il cursore
+                cursor.style.left = e.clientX + "px";
+                cursor.style.top = e.clientY + "px";
 
-            // Aggiorna coordinate fittizie nel footer
-            coordsDiv.innerText = `X: ${e.clientX} — Y: ${e.clientY}`;
-        });
-
-        // Effetto hover sui link (ingrandisce il cursore)
-        document.querySelectorAll("a, .gal-item").forEach(el => {
-            el.addEventListener("mouseenter", () => {
-                cursor.style.transform = "translate(-50%, -50%) scale(1.5) rotate(45deg)";
+                // Aggiorna coordinate fittizie nel footer
+                coordsDiv.innerText = `X: ${e.clientX} — Y: ${e.clientY}`;
             });
-            el.addEventListener("mouseleave", () => {
-                cursor.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
+
+            // Effetto hover sui link (ingrandisce il cursore)
+            document.querySelectorAll("a, .gal-item, .menu-btn").forEach(el => {
+                el.addEventListener("mouseenter", () => {
+                    cursor.style.transform = "translate(-50%, -50%) scale(1.5) rotate(45deg)";
+                });
+                el.addEventListener("mouseleave", () => {
+                    cursor.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
+                });
             });
-        });
+        }
     </script>
 </body>
 </html>
