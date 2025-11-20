@@ -324,11 +324,19 @@
     <!-- Custom Cursor -->
     <div class="cursor" id="cursor"></div>
 
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobileMenuOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 200; display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);">
+        <div style="position: absolute; top: 1.5rem; right: 1.5rem; cursor: pointer; font-size: 1.5rem;" id="closeMenu">✕</div>
+        <a href="../index.html" style="font-size: 2rem; margin-bottom: 1rem; text-decoration: none; color: var(--ink);">HOME</a>
+        <a href="../portfolio.html" style="font-size: 2rem; margin-bottom: 1rem; text-decoration: none; color: var(--ink);">PORTFOLIO</a>
+        <a href="#" style="font-size: 2rem; margin-bottom: 1rem; text-decoration: none; color: var(--ink);">CONTACT</a>
+    </div>
+
     <!-- UI Fissa -->
     <div class="fixed-ui top">
         <div class="logo">STRUCTURE / 01</div>
         <div class="desktop-only" style="display: none;">ARCH. PROJECT 2024</div>
-        <div class="menu-btn">[MENU]</div>
+        <div class="menu-btn" id="openMenu">[MENU]</div>
     </div>
 
     <div class="fixed-ui bottom">
@@ -405,6 +413,23 @@
     </div>
 
     <script>
+        // --- MOBILE MENU LOGIC ---
+        const openMenuBtn = document.getElementById('openMenu');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenuOverlay');
+
+        if (openMenuBtn) {
+            openMenuBtn.addEventListener('click', () => {
+                mobileMenu.style.transform = 'translateY(0)';
+            });
+        }
+
+        if (closeMenuBtn) {
+            closeMenuBtn.addEventListener('click', () => {
+                mobileMenu.style.transform = 'translateY(-100%)';
+            });
+        }
+
         // --- LOGICA SCROLL ORIZZONTALE ---
         const scrollContainer = document.getElementById("scrollContainer");
         
@@ -412,11 +437,11 @@
         window.addEventListener("wheel", (evt) => {
             // Controllo robusto per device desktop
             if(window.innerWidth > 1024) {
-                // Se è un mouse verticale (deltaY dominante), lo convertiamo in orizzontale
-                if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
+                // Se è desktop, convertiamo QUALSIASI scroll verticale (deltaY) in orizzontale (scrollLeft)
+                // Questo permette di scorrere verso destra semplicemente ruotando la rotellina in giù
+                if (evt.deltaY !== 0) {
                     scrollContainer.scrollLeft += evt.deltaY;
-                    // Su desktop puro, blocchiamo lo scroll verticale nativo per forzare quello orizzontale
-                    // evt.preventDefault(); 
+                    //evt.preventDefault(); // Opzionale: previene il comportamento nativo se necessario
                 }
             }
         }, { passive: false });
@@ -433,7 +458,7 @@
                 cursor.style.top = e.clientY + "px";
 
                 // Aggiorna coordinate fittizie nel footer
-                coordsDiv.innerText = `X: ${e.clientX} — Y: ${e.clientY}`;
+                if(coordsDiv) coordsDiv.innerText = `X: ${e.clientX} — Y: ${e.clientY}`;
             });
 
             // Effetto hover sui link (ingrandisce il cursore)
