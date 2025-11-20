@@ -93,24 +93,32 @@ body {
 }
 
 .logo {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 0;
+    transition: opacity 0.3s ease;
 }
 
-.logo-web {
-    color: var(--white);
+.logo:hover {
+    opacity: 0.9;
 }
 
-.logo-novis {
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.logo-image {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Rimuoviamo i vecchi stili del logo testuale se non servono più, o li teniamo come backup */
+.logo-web, .logo-novis {
+    display: none;
+}
+
+/* Responsive logo */
+@media (max-width: 768px) {
+    .logo-image {
+        height: 35px; /* Leggermente più piccolo su mobile */
+    }
 }
 
 .nav-menu {
