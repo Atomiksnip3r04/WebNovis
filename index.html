@@ -47,8 +47,13 @@
     <meta itemprop="image" content="https://webnovis.com/img/logo.png">
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/social-feed-modern.css">
-    <link rel="stylesheet" href="css/weby-mobile-fix.css">
+    <!-- Load non-critical CSS asynchronously to avoid render blocking -->
+    <link rel="stylesheet" href="css/social-feed-modern.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/weby-mobile-fix.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="css/social-feed-modern.css">
+        <link rel="stylesheet" href="css/weby-mobile-fix.css">
+    </noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

@@ -150,19 +150,26 @@ window.addEventListener('scroll', () => {
             // Also handle background color change here to avoid multiple listeners
             const bodySections = document.querySelectorAll('section');
             const body = document.body;
+            let newBackground = '';
             
+            // Batch READS
             bodySections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 // Check if section is in the middle of the viewport
                 if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
                     const sectionClass = section.className;
                     if (sectionClass.includes('hero')) {
-                        body.style.background = 'var(--dark)';
+                        newBackground = 'var(--dark)';
                     } else if (sectionClass.includes('triade')) {
-                        body.style.background = 'linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%)';
+                        newBackground = 'linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%)';
                     }
                 }
             });
+
+            // Single WRITE
+            if (newBackground) {
+                 body.style.background = newBackground;
+            }
 
             isScrolling = false;
         });
@@ -202,18 +209,28 @@ const sections = document.querySelectorAll('section[id]');
 
 const highlightNav = () => {
     const scrollY = window.pageYOffset;
+    let activeId = '';
 
+    // Batch READS
     sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
-        const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-        if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            navLink.classList.add('active');
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            activeId = section.getAttribute('id');
         }
     });
+
+    // Batch WRITES
+    if (activeId) {
+        navLinks.forEach(link => {
+             const href = link.getAttribute('href');
+             if (href === '#' + activeId) {
+                 if (!link.classList.contains('active')) link.classList.add('active');
+             } else {
+                 if (link.classList.contains('active')) link.classList.remove('active');
+             }
+        });
+    }
 };
 
 window.addEventListener('scroll', highlightNav);
@@ -704,6 +721,15 @@ if (socialFeedScroll) {
         const posts = Array.from(socialFeedScroll.children);
         console.log(`📝 Found ${posts.length} posts, cloning for infinite scroll...`);
 
+        // Calculate original content height (before cloning/appending) to avoid forced reflow
+        let originalHeight = 0;
+        posts.forEach(post => {
+            originalHeight += post.offsetHeight;
+            // Add margin-bottom from computed style
+            const style = window.getComputedStyle(post);
+            originalHeight += parseInt(style.marginBottom) || 0;
+        });
+
         const clonedPosts = posts.map(post => post.cloneNode(true));
 
         // Append cloned posts for infinite scroll
@@ -714,15 +740,6 @@ if (socialFeedScroll) {
         let scrollPosition = 0;
         let isScrolling = true;
         let scrollSpeed = 0.5; // Velocità ottimale per smooth scroll
-
-        // Calculate original content height (before cloning)
-        let originalHeight = 0;
-        posts.forEach(post => {
-            originalHeight += post.offsetHeight;
-            // Add margin-bottom from computed style
-            const style = window.getComputedStyle(post);
-            originalHeight += parseInt(style.marginBottom) || 0;
-        });
 
         console.log(`📏 Original height: ${originalHeight}px`);
         console.log(`📏 Total height: ${socialFeedScroll.scrollHeight}px`);
@@ -1204,261 +1221,4 @@ console.log('%cKeyboard Shortcuts: H = Home | C = Contact', 'font-size: 12px; co
 
 
 // ===== CHAT POPUP FUNCTIONALITY =====
-// Wrap in function to ensure DOM is ready
-function initChat() {
-    const chatButton = document.getElementById('chatButton');
-    const chatPopup = document.getElementById('chatPopup');
-    const chatClose = document.getElementById('chatClose');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
-    const chatMessages = document.getElementById('chatMessages');
-    const fabNotification = document.querySelector('.fab-notification');
-
-    console.log('🔍 Chat elements check:', {
-        chatButton: chatButton ? '✅ Found' : '❌ Not found',
-        chatPopup: chatPopup ? '✅ Found' : '❌ Not found',
-        chatClose: chatClose ? '✅ Found' : '❌ Not found',
-        chatInput: chatInput ? '✅ Found' : '❌ Not found',
-        chatSend: chatSend ? '✅ Found' : '❌ Not found',
-        chatMessages: chatMessages ? '✅ Found' : '❌ Not found'
-    });
-
-    // Test visivo - aggiungi un bordo rosso al FAB per debug
-    if (chatButton) {
-        chatButton.style.outline = '2px solid red';
-        console.log('🎯 FAB button position:', chatButton.getBoundingClientRect());
-
-        // Test diretto - forza il click handler
-        chatButton.onclick = function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const isActive = chatPopup.classList.contains('active');
-            console.log('🖱️ Chat button clicked! Current state:', isActive ? 'open' : 'closed');
-
-            chatPopup.classList.toggle('active');
-
-            console.log('📱 New state:', chatPopup.classList.contains('active') ? 'open' : 'closed');
-
-            // Nascondi notifica quando apri la chat
-            if (chatPopup.classList.contains('active') && fabNotification) {
-                fabNotification.style.display = 'none';
-            }
-
-            // Focus sull'input quando si apre
-            if (chatPopup.classList.contains('active') && chatInput) {
-                setTimeout(() => chatInput.focus(), 300);
-            }
-        };
-
-        console.log('✅ Chat onclick handler attached');
-    } else {
-        console.error('❌ Chat button not found!');
-    }
-
-    if (!chatPopup) {
-        console.error('❌ Chat popup not found!');
-        return; // Exit if popup not found
-    }
-
-    // Close chat
-    if (chatClose) {
-        chatClose.addEventListener('click', () => {
-            chatPopup.classList.remove('active');
-        });
-    }
-
-    // Send message function
-    const sendMessage = () => {
-        const message = chatInput.value.trim();
-
-        if (message === '') return;
-
-        // Aggiungi messaggio utente
-        addUserMessage(message);
-
-        // Pulisci input
-        chatInput.value = '';
-
-        // Mostra typing indicator
-        showTypingIndicator();
-
-        // Simula risposta dopo 1-2 secondi
-        setTimeout(() => {
-            hideTypingIndicator();
-            addBotResponse(message);
-        }, 1000 + Math.random() * 1000);
-    };
-
-    // Send message on button click
-    if (chatSend) {
-        chatSend.addEventListener('click', sendMessage);
-    }
-
-    // Send message on Enter key - FIX: previeni refresh e scroll
-    if (chatInput) {
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                e.stopPropagation();
-                sendMessage();
-            }
-        });
-
-        // Previeni scroll della pagina quando si digita nella chat
-        chatInput.addEventListener('keydown', (e) => {
-            e.stopPropagation();
-        });
-
-        chatInput.addEventListener('input', (e) => {
-            e.stopPropagation();
-        });
-    }
-
-    // Quick reply buttons
-    const quickReplyButtons = document.querySelectorAll('.quick-reply');
-    quickReplyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const message = button.dataset.message;
-            chatInput.value = message;
-            sendMessage();
-
-            // Rimuovi i quick replies dopo il primo click
-            const quickRepliesContainer = document.querySelector('.chat-quick-replies');
-            if (quickRepliesContainer) {
-                quickRepliesContainer.style.opacity = '0';
-                setTimeout(() => quickRepliesContainer.remove(), 300);
-            }
-        });
-    });
-
-    // Add user message to chat
-    const addUserMessage = (message) => {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'chat-message user-message';
-        messageDiv.innerHTML = `
-        <div class="message-avatar">TU</div>
-        <div class="message-content">
-            <p>${escapeHtml(message)}</p>
-            <span class="message-time">Ora</span>
-        </div>
-    `;
-
-        chatMessages.appendChild(messageDiv);
-        scrollToBottom();
-    };
-
-    // Add bot response
-    const addBotResponse = (userMessage) => {
-        const response = getBotResponse(userMessage);
-
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'chat-message bot-message';
-        messageDiv.innerHTML = `
-        <div class="message-avatar">WN</div>
-        <div class="message-content">
-            <p>${response}</p>
-            <span class="message-time">Ora</span>
-        </div>
-    `;
-
-        chatMessages.appendChild(messageDiv);
-        scrollToBottom();
-    };
-
-    // Show typing indicator
-    const showTypingIndicator = () => {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'chat-message bot-message typing-indicator';
-        typingDiv.id = 'typingIndicator';
-        typingDiv.innerHTML = `
-        <div class="message-avatar">WN</div>
-        <div class="message-content">
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        </div>
-    `;
-
-        chatMessages.appendChild(typingDiv);
-        scrollToBottom();
-    };
-
-    // Hide typing indicator
-    const hideTypingIndicator = () => {
-        const typingIndicator = document.getElementById('typingIndicator');
-        if (typingIndicator) {
-            typingIndicator.remove();
-        }
-    };
-
-    // Scroll to bottom of chat - FIX: usa smooth scroll e previeni scroll della pagina
-    const scrollToBottom = () => {
-        if (chatMessages) {
-            requestAnimationFrame(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
-        }
-    };
-
-    // Get bot response based on user message
-    const getBotResponse = (message) => {
-        const lowerMessage = message.toLowerCase();
-
-        // Risposte predefinite
-        if (lowerMessage.includes('servizi') || lowerMessage.includes('info')) {
-            return 'Offriamo tre servizi principali: 🌐 Web Development, 🎨 Graphic Design e 📱 Social Media Management. Quale ti interessa di più?';
-        } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
-            return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o chiamarci direttamente. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
-        } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
-            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o chiamarci. Il nostro team è sempre disponibile!';
-        } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
-            return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
-        } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
-            return 'Creiamo identità visive complete: logo, branding, materiale pubblicitario e molto altro. Il design è la nostra passione! ✨';
-        } else if (lowerMessage.includes('social') || lowerMessage.includes('instagram') || lowerMessage.includes('facebook')) {
-            return 'Gestiamo i tuoi social media con strategie mirate, contenuti di qualità e campagne pubblicitarie ottimizzate. Facciamo crescere il tuo brand! 📱';
-        } else if (lowerMessage.includes('contatto') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
-            return 'Puoi contattarci via email a webnovis.info@gmail.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
-        } else if (lowerMessage.includes('ciao') || lowerMessage.includes('salve') || lowerMessage.includes('buongiorno')) {
-            return 'Ciao! 👋 Benvenuto su WebNovis. Come posso aiutarti oggi?';
-        } else if (lowerMessage.includes('grazie')) {
-            return 'Prego! È stato un piacere aiutarti. Se hai altre domande, sono qui! 😊';
-        } else {
-            return 'Interessante! Per informazioni più dettagliate, ti consiglio di contattarci direttamente. Il nostro team sarà felice di rispondere a tutte le tue domande! 💬';
-        }
-    };
-
-    // Escape HTML to prevent XSS
-    const escapeHtml = (text) => {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    };
-
-    // Close chat when clicking outside
-    document.addEventListener('click', (e) => {
-        if (chatPopup && chatPopup.classList.contains('active')) {
-            if (!e.target.closest('.chat-popup') && !e.target.closest('#chatButton') && !e.target.closest('.fab-container')) {
-                chatPopup.classList.remove('active');
-            }
-        }
-    });
-
-    // Mostra notifica dopo 5 secondi se la chat non è stata aperta
-    setTimeout(() => {
-        if (fabNotification && !chatPopup.classList.contains('active')) {
-            fabNotification.style.display = 'flex';
-        }
-    }, 5000);
-
-    console.log('%c💬 Chat System Loaded', 'color: #10b981; font-weight: bold;');
-}
-
-// Initialize chat when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initChat);
-} else {
-    // DOM already loaded
-    initChat();
-}
+// Moved to js/chat.js to avoid code duplication and improve performance
