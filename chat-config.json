@@ -2,152 +2,104 @@
   "companyInfo": {
     "name": "WebNovis",
     "chatbotName": "Weby",
-    "description": "Porta alla luce la tua attività. Un personale specializzato e dedicato per creare e moltiplicare la tua presenza online attraverso Web Development, Graphic Design e Social Media Management",
+    "description": "Agenzia digitale completa: Web Development, Graphic Design, Social Media Management, Fotografia e Photo Editing professionale.",
     "motto": "Accendi la scintilla che illumina la tua visibilità",
-    "email": "info@webnovis.com",
+    "email": "webnovis.info@gmail.com",
     "phone": "+39 3802647367",
     "website": "https://webnovis.com"
   },
   "services": {
     "webDevelopment": {
-      "name": "Web Development",
-      "description": "Sviluppo siti web professionali, responsive e ottimizzati",
-      "features": [
-        "Siti web responsive e mobile-first",
-        "E-commerce scalabili e sicuri",
-        "Ottimizzazione SEO avanzata",
-        "Performance ultra-veloci",
-        "Supporto tecnico post-lancio"
-      ],
+      "name": "Web Development & E-commerce",
+      "description": "Siti web ultra-performanti, e-commerce e applicazioni web",
       "pricing": {
         "landingPage": {
           "name": "Landing Page",
-          "price": "€350 - €500",
-          "description": "Pagina singola ottimizzata per conversioni"
+          "price": "da €500",
+          "description": "Pagina singola ad alta conversione, ideale per campagne"
         },
-        "sitoCorporate": {
-          "name": "Sito Corporate",
-          "price": "€800 - €1200",
-          "description": "Sito multi-pagina professionale (5-10 pagine)"
+        "sitoVetrina": {
+          "name": "Sito Vetrina",
+          "price": "da €1.200",
+          "description": "Sito multi-pagina (Home, Chi Siamo, Servizi, Contatti)"
         },
         "ecommerce": {
           "name": "E-commerce",
-          "price": "€3.500 - €10.000+",
-          "description": "Shop online completo con gestione prodotti e pagamenti"
-        },
-        "webApp": {
-          "name": "Web Application",
-          "price": "Su preventivo",
-          "description": "Applicazioni web custom con funzionalità avanzate"
+          "price": "da €3.500",
+          "description": "Negozio online completo, pagamenti sicuri, gestione ordini"
         }
       }
     },
     "graphicDesign": {
-      "name": "Graphic Design",
-      "description": "Identità visiva e branding coordinato",
-      "features": [
-        "Logo design professionale",
-        "Brand identity completa",
-        "Materiale pubblicitario (flyer, brochure, cataloghi)",
-        "Grafica per social media",
-        "Packaging design"
-      ],
+      "name": "Graphic Design & Branding",
+      "description": "Identità visiva completa e coordinata",
       "pricing": {
         "logo": {
           "name": "Logo Design",
-          "price": "€400 - €1.200",
-          "description": "Logo professionale con varianti e manuale d'uso"
+          "price": "da €400",
+          "description": "Design logo professionale con manuale d'uso"
         },
         "brandIdentity": {
-          "name": "Brand Identity",
-          "price": "€1.500 - €3.500",
-          "description": "Logo + palette colori + tipografia + brand guidelines"
+          "name": "Brand Identity Completa",
+          "price": "da €1.500",
+          "description": "Logo, biglietti da visita, carta intestata, palette colori"
         },
-        "materialePubblicitario": {
+        "materialeStampa": {
           "name": "Materiale Pubblicitario",
-          "price": "€150 - €500/pezzo",
-          "description": "Flyer, brochure, cataloghi, biglietti da visita"
-        },
-        "graficaSocial": {
-          "name": "Grafica Social Media",
-          "price": "€300 - €800/mese",
-          "description": "Pacchetto mensile di grafiche per social (8-15 post)"
+          "price": "Su preventivo",
+          "description": "Flyer, brochure, cataloghi, menù ristoranti"
         }
       }
     },
     "socialMedia": {
-      "name": "Social Media Management",
-      "description": "Gestione professionale della presenza online",
-      "features": [
-        "Strategia social media personalizzata",
-        "Creazione contenuti (foto, video, grafiche)",
-        "Gestione community e interazioni",
-        "Campagne pubblicitarie Meta/Google Ads",
-        "Report mensili con analytics"
-      ],
+      "name": "Social Media & Content Creation",
+      "description": "Gestione social, fotografia e video making",
       "pricing": {
-        "basic": {
-          "name": "Piano Basic",
-          "price": "€500 - €800/mese",
-          "description": "1-2 piattaforme, 8-12 post/mese, gestione base"
+        "gestioneBase": {
+          "name": "Social Start",
+          "price": "da €500/mese",
+          "description": "Piano editoriale, 8 post/mese, report base"
         },
-        "professional": {
-          "name": "Piano Professional",
-          "price": "€900 - €1.500/mese",
-          "description": "2-3 piattaforme, 15-20 post/mese, stories, reels"
+        "gestionePro": {
+          "name": "Social Pro",
+          "price": "da €900/mese",
+          "description": "12 post + 4 stories/mese, community management, report avanzati"
         },
-        "premium": {
-          "name": "Piano Premium",
-          "price": "€1.600 - €3.000/mese",
-          "description": "Tutte le piattaforme, contenuti illimitati, ads, influencer marketing"
+        "photoVideo": {
+          "name": "Shooting Foto/Video",
+          "price": "da €350/sessione",
+          "description": "Servizio fotografico professionale, video editing, post-produzione"
         },
-        "fotoVideo": {
-          "name": "Servizio Foto/Video",
-          "price": "€300 - €1.000/sessione",
-          "description": "Shooting fotografico o video professionale"
+        "photoEditing": {
+          "name": "Photo Editing Avanzato",
+          "price": "Su preventivo",
+          "description": "Ritocco professionale, correzione colore, fotomontaggi"
         }
       }
     }
   },
   "process": {
     "steps": [
-      "Consulenza iniziale gratuita",
-      "Analisi esigenze e preventivo personalizzato",
-      "Firma contratto e acconto (30-50%)",
-      "Sviluppo/Creazione con revisioni incluse",
-      "Consegna finale e saldo",
-      "Supporto post-lancio"
+      "Analisi gratuita delle esigenze",
+      "Proposta strategica e preventivo",
+      "Sviluppo creativo con revisioni",
+      "Consegna e supporto post-lancio"
     ],
     "timeline": {
-      "landingPage": "1-2 settimane",
-      "sitoCorporate": "3-6 settimane",
-      "ecommerce": "6-12 settimane",
-      "logo": "1-2 settimane",
-      "brandIdentity": "3-4 settimane",
-      "socialMediaSetup": "1 settimana"
+      "web": "2-6 settimane",
+      "branding": "2-4 settimane",
+      "social": "Attivazione in 5 giorni"
     }
   },
   "faq": [
     {
-      "question": "Offrite consulenza gratuita?",
-      "answer": "Sì! La prima consulenza è sempre gratuita. Analizziamo insieme le tue esigenze e ti forniamo un preventivo dettagliato."
+      "question": "Fate anche foto e video?",
+      "answer": "Assolutamente sì! Abbiamo fotografi e videomaker professionisti per creare contenuti originali per i tuoi social e il tuo sito."
     },
     {
-      "question": "Quanto tempo ci vuole per realizzare un sito?",
-      "answer": "Dipende dalla complessità: una landing page richiede 1-2 settimane, un sito corporate 3-6 settimane, un e-commerce 6-12 settimane."
-    },
-    {
-      "question": "Fornite supporto dopo la consegna?",
-      "answer": "Assolutamente! Offriamo supporto tecnico post-lancio e pacchetti di manutenzione mensile."
-    },
-    {
-      "question": "Posso pagare a rate?",
-      "answer": "Sì, per progetti sopra i €2.000 offriamo piani di pagamento personalizzati."
-    },
-    {
-      "question": "Gestite anche le campagne pubblicitarie?",
-      "answer": "Sì! Creiamo e gestiamo campagne su Meta Ads, Google Ads e altre piattaforme con budget ottimizzato."
+      "question": "I preventivi sono gratuiti?",
+      "answer": "Sì, la prima consulenza e il preventivo sono sempre gratuiti e senza impegno."
     }
   ],
-  "chatbotInstructions": "Sei Weby, l'assistente virtuale di WebNovis, un'agenzia digitale italiana con il motto 'Accendi la scintilla che illumina la tua visibilità'. Presentati sempre come Weby quando saluti. La nostra missione è portare alla luce le attività dei clienti con un personale specializzato e dedicato. Rispondi sempre in italiano in modo professionale ma amichevole e caloroso. Usa emoji quando appropriato (💡 🔥 ✨). Fornisci informazioni dettagliate sui servizi e prezzi quando richiesto. Enfatizza come possiamo illuminare e moltiplicare la presenza online del cliente. Se non hai informazioni specifiche, invita l'utente a contattare direttamente il team. Sii proattivo nel suggerire soluzioni basate sulle esigenze del cliente."
+  "chatbotInstructions": "Sei Weby, l'assistente AI di WebNovis. \n\nREGOLE FONDAMENTALI (GUARDRAILS):\n1. IL TUO UNICO SCOPO è aiutare i clienti con i servizi di WebNovis (Web, Grafica, Social, Foto/Video). \n2. RIFIUTA CORTESEMENTE qualsiasi richiesta non legata a questi temi (es. 'Non posso aiutarti con i compiti di matematica, ma posso progettare il sito per la tua scuola!').\n3. NON usare MAI la formattazione Markdown (niente grassetti con asterischi **, niente elenchi con trattini - o numeri 1.). Usa SOLO testo semplice, emoji per elenchi puntati (es. • o 👉) e spaziatura (a capo) per separare i concetti. Il testo deve essere pulito e leggibile come una chat umana.\n4. Sii professionale, persuasivo ma amichevole.\n5. Se ti chiedono i contatti, dai sempre: webnovis.info@gmail.com.\n6. Non inventare prezzi diversi da quelli nel listino.\n7. Se l'utente insiste su argomenti off-topic, riportalo gentilmente ai servizi dell'agenzia."
 }

@@ -114,7 +114,14 @@ app.post('/api/chat', async (req, res) => {
             throw new Error(data.error.message);
         }
 
-        const response = data.choices[0].message.content;
+        let response = data.choices[0].message.content;
+
+        // CLEANUP: Rimuove eventuali residui di markdown se l'AI non ha obbedito
+        response = response.replace(/\*\*/g, '')   // Rimuove grassetto
+                          .replace(/\#/g, '')      // Rimuove intestazioni
+                          .replace(/\-\s/g, '• ')  // Sostituisce trattini con pallini
+                          .replace(/\[.*?\]/g, ''); // Rimuove link markdown
+
         console.log(`✅ OpenAI response: ${response.substring(0, 100)}...`);
         res.json({ response });
 
