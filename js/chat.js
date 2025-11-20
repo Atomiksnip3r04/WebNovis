@@ -178,12 +178,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Conversation history per ChatGPT
     let conversationHistory = [];
-    const API_ENDPOINT = 'http://localhost:3000/api/chat'; // Cambia con il tuo dominio in produzione
+    
+    // Configurazione Endpoint API
+    // Quando sei in locale usa localhost, quando sei online userà l'URL di produzione
+    const PRODUCTION_API_URL = 'https://webnovis-chat.onrender.com/api/chat'; // ⚠️ DA AGGIORNARE DOPO IL DEPLOY SU RENDER
+    
+    const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api/chat'
+        : PRODUCTION_API_URL;
 
     async function getBotResponse(message) {
         try {
-            console.log('🔄 Sending message to backend:', message);
-            console.log('📡 API Endpoint:', API_ENDPOINT);
+            console.log('🔄 Sending message to:', API_ENDPOINT);
             
             // Prova a chiamare il backend con ChatGPT
             const response = await fetch(API_ENDPOINT, {
