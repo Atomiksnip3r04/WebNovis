@@ -1,154 +1,266 @@
-// ===== CHAT POPUP FUNCTIONALITY =====
-console.log('💬 Loading chat system...');
+// ===== WEBY CHATBOT SYSTEM =====
+console.log('💬 WebNovis Chat System v2.0 Loading...');
 
-// Wait for DOM to be ready
+// Configuration
+const CHAT_CONFIG = {
+    apiEndpoint: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://localhost:3000/api/chat' 
+        : 'https://webnovis-chat.onrender.com/api/chat',
+    healthCheckUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api/health'
+        : 'https://webnovis-chat.onrender.com/api/health',
+    typingSpeed: 30, // ms per character
+    botName: 'Weby',
+    botAvatar: '🤖',
+    userAvatar: '👤',
+    welcomeMessage: 'Ciao! Sono Weby, l\'assistente AI di WebNovis. 👋\nCome posso aiutarti a far crescere il tuo business oggi?',
+    keepAliveInterval: 5 * 60 * 1000 // 5 minutes
+};
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔄 DOM loaded, initializing chat...');
+    console.log('🚀 Initializing Chat Interface...');
     
-    const chatButton = document.getElementById('chatButton');
-    const chatPopup = document.getElementById('chatPopup');
-    const chatClose = document.getElementById('chatClose');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
-    const chatMessages = document.getElementById('chatMessages');
-    const fabNotification = document.querySelector('.fab-notification');
+    // DOM Elements
+    const elements = {
+        button: document.getElementById('chatButton'),
+        popup: document.getElementById('chatPopup'),
+        close: document.getElementById('chatClose'),
+        input: document.getElementById('chatInput'),
+        send: document.getElementById('chatSend'),
+        messages: document.getElementById('chatMessages'),
+        bubble: document.getElementById('webyBubble'),
+        bubbleClose: document.getElementById('webyBubbleClose')
+    };
 
-    console.log('🔍 Chat elements:', { 
-        chatButton: !!chatButton, 
-        chatPopup: !!chatPopup,
-        chatClose: !!chatClose,
-        chatInput: !!chatInput,
-        chatSend: !!chatSend,
-        chatMessages: !!chatMessages
-    });
-
-    if (!chatButton || !chatPopup) {
-        console.error('❌ Chat elements not found!');
+    // Check for critical elements
+    if (!elements.button || !elements.popup) {
+        console.error('❌ Critical chat elements missing from DOM');
         return;
     }
 
-    // Toggle chat popup - usando onclick per massima compatibilità
-    chatButton.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const isActive = chatPopup.classList.contains('active');
-        console.log('🖱️ Chat button clicked! State:', isActive ? 'open→close' : 'closed→open');
-        
-        chatPopup.classList.toggle('active');
-        
-        // Nascondi notifica quando apri la chat
-        if (chatPopup.classList.contains('active') && fabNotification) {
-            fabNotification.style.display = 'none';
-        }
-        
-        // Focus sull'input quando si apre
-        if (chatPopup.classList.contains('active') && chatInput) {
-            setTimeout(() => chatInput.focus(), 300);
-        }
-        
-        console.log('✅ Chat state changed to:', chatPopup.classList.contains('active') ? 'open' : 'closed');
+    // State
+    let state = {
+        isOpen: false,
+        isTyping: false,
+        history: [], // Conversation history for context
+        hasInteracted: false
     };
 
-    // Close chat
-    if (chatClose) {
-        chatClose.onclick = function() {
-            chatPopup.classList.remove('active');
-        };
+    // --- EVENT LISTENERS ---
+
+    // Toggle Chat
+    elements.button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleChat();
+    });
+
+    // Close Chat
+    if (elements.close) {
+        elements.close.addEventListener('click', () => closeChat());
     }
 
-    // Send message function
-    function sendMessage() {
-        if (!chatInput) return;
-        
-        const message = chatInput.value.trim();
-        if (message === '') return;
-        
-        addUserMessage(message);
-        chatInput.value = '';
-        showTypingIndicator();
-        
-        setTimeout(() => {
-            hideTypingIndicator();
-            addBotResponse(message);
-        }, 1000 + Math.random() * 1000);
+    // Close Bubble
+    if (elements.bubbleClose) {
+        elements.bubbleClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (elements.bubble) elements.bubble.classList.add('hidden');
+        });
     }
 
-    // Send message on button click
-    if (chatSend) {
-        chatSend.onclick = sendMessage;
-    }
-
-    // Send message on Enter key - FIX: previeni refresh e scroll
-    if (chatInput) {
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+    // Input Handling
+    if (elements.input) {
+        elements.input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                e.stopPropagation();
                 sendMessage();
             }
         });
         
-        // Previeni scroll della pagina quando si digita nella chat
-        chatInput.addEventListener('keydown', (e) => {
-            e.stopPropagation();
-        });
-        
-        chatInput.addEventListener('input', (e) => {
-            e.stopPropagation();
+        // Prevent scroll on mobile focus
+        elements.input.addEventListener('focus', () => {
+            if (window.innerWidth < 768) {
+                setTimeout(() => elements.messages.scrollTop = elements.messages.scrollHeight, 300);
+            }
         });
     }
 
-    // Quick reply buttons
-    const quickReplyButtons = document.querySelectorAll('.quick-reply');
-    quickReplyButtons.forEach(button => {
-        button.onclick = function() {
-            const message = button.dataset.message;
-            chatInput.value = message;
-            sendMessage();
-            
-            const quickRepliesContainer = document.querySelector('.chat-quick-replies');
-            if (quickRepliesContainer) {
-                quickRepliesContainer.style.opacity = '0';
-                setTimeout(() => quickRepliesContainer.remove(), 300);
+    if (elements.send) {
+        elements.send.addEventListener('click', sendMessage);
+    }
+
+    // Quick Replies
+    document.querySelectorAll('.quick-reply').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const msg = this.dataset.message;
+            if (msg) {
+                elements.input.value = msg;
+                sendMessage();
+                // Fade out quick replies
+                const container = this.parentElement;
+                container.style.opacity = '0';
+                setTimeout(() => container.remove(), 300);
             }
-        };
+        });
     });
 
-    // Helper functions
-    function addUserMessage(message) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'chat-message user-message';
-        messageDiv.innerHTML = `
-            <div class="message-avatar">TU</div>
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (state.isOpen && 
+            !elements.popup.contains(e.target) && 
+            !elements.button.contains(e.target)) {
+            closeChat();
+        }
+    });
+
+    // --- FUNCTIONS ---
+
+    function toggleChat() {
+        state.isOpen = !state.isOpen;
+        elements.popup.classList.toggle('active', state.isOpen);
+        
+        if (state.isOpen) {
+            // Hide notification bubble when open
+            if (elements.bubble) elements.bubble.classList.add('hidden');
+            
+            // Focus input
+            setTimeout(() => elements.input?.focus(), 100);
+            
+            // Scroll to bottom
+            scrollToBottom();
+        }
+    }
+
+    function closeChat() {
+        state.isOpen = false;
+        elements.popup.classList.remove('active');
+    }
+
+    function appendMessage(content, type = 'bot') {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `chat-message ${type === 'user' ? 'user-message' : 'bot-message'}`;
+        
+        const avatar = type === 'user' ? 'TU' : 'WN';
+        const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        // Parse basic markdown-like syntax for bot messages
+        let formattedContent = escapeHtml(content);
+        if (type === 'bot') {
+            formattedContent = formattedContent
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        }
+
+        msgDiv.innerHTML = `
+            <div class="message-avatar">${avatar}</div>
             <div class="message-content">
-                <p>${escapeHtml(message)}</p>
-                <span class="message-time">Ora</span>
+                <p>${formattedContent}</p>
+                <span class="message-time">${time}</span>
             </div>
         `;
-        chatMessages.appendChild(messageDiv);
+
+        elements.messages.appendChild(msgDiv);
         scrollToBottom();
     }
 
-    async function addBotResponse(userMessage) {
-        const response = await getBotResponse(userMessage);
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'chat-message bot-message';
-        messageDiv.innerHTML = `
-            <div class="message-avatar">WN</div>
-            <div class="message-content">
-                <p>${response}</p>
-                <span class="message-time">Ora</span>
-            </div>
-        `;
-        chatMessages.appendChild(messageDiv);
-        scrollToBottom();
+    async function sendMessage() {
+        if (state.isTyping || !elements.input.value.trim()) return;
+
+        const message = elements.input.value.trim();
+        elements.input.value = ''; // Clear input immediately
+        state.hasInteracted = true;
+
+        // Add User Message
+        appendMessage(message, 'user');
+
+        // Show Typing Indicator
+        showTyping();
+
+        try {
+            // Determine response
+            const response = await fetchResponse(message);
+            
+            // Remove Typing Indicator
+            hideTyping();
+            
+            // Add Bot Response
+            appendMessage(response, 'bot');
+            
+            // Update History
+            state.history.push({ role: 'user', content: message });
+            state.history.push({ role: 'assistant', content: response });
+            
+            // Limit history
+            if (state.history.length > 10) state.history = state.history.slice(-10);
+
+        } catch (error) {
+            console.error('Chat Error:', error);
+            hideTyping();
+            appendMessage('Mi dispiace, si è verificato un errore di connessione. Riprova tra poco! 😔', 'bot');
+        }
     }
 
-    function showTypingIndicator() {
+    async function fetchResponse(message) {
+        // Artificial delay for natural feel if local
+        const startTime = Date.now();
+        
+        try {
+            console.log(`📡 Calling API: ${CHAT_CONFIG.apiEndpoint}`);
+            
+            const res = await fetch(CHAT_CONFIG.apiEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: message,
+                    conversationHistory: state.history
+                })
+            });
+
+            if (!res.ok) throw new Error(`API Error: ${res.status}`);
+
+            const data = await res.json();
+            
+            // Ensure minimum visibility time for typing indicator
+            const elapsed = Date.now() - startTime;
+            if (elapsed < 1000) await new Promise(r => setTimeout(r, 1000 - elapsed));
+
+            return data.response || data.fallback || getLocalFallback(message);
+
+        } catch (error) {
+            console.warn('⚠️ API Unreachable, using local fallback:', error);
+            await new Promise(r => setTimeout(r, 1000)); // Simulate network delay
+            return getLocalFallback(message);
+        }
+    }
+
+    function getLocalFallback(message) {
+        const lower = message.toLowerCase();
+        
+        // Simple keyword matching aligned with WebNovis services
+        if (lower.includes('prezz') || lower.includes('cost')) {
+            return "I nostri prezzi sono su misura! 🏷️\n• Landing Page: da €500\n• Siti Vetrina: da €1.200\n• E-commerce: da €3.500\n\nPer un preventivo esatto, scrivici a webnovis.info@gmail.com!";
+        }
+        if (lower.includes('sito') || lower.includes('web')) {
+            return "Sviluppiamo siti web ultra-veloci e moderni! 🚀\nCi occupiamo di design, sviluppo e SEO. Vuoi vedere qualche esempio del nostro portfolio?";
+        }
+        if (lower.includes('social') || lower.includes('instagram')) {
+            return "Gestiamo la tua presenza social a 360°! 📱\nDalla strategia alla creazione dei contenuti. I nostri piani partono da €300/mese.";
+        }
+        if (lower.includes('contatt') || lower.includes('email')) {
+            return "Puoi contattarci qui: 📧 webnovis.info@gmail.com\nOppure compila il form in fondo alla pagina!";
+        }
+        if (lower.includes('ciao') || lower.includes('salve')) {
+            return "Ciao! 👋 Benvenuto in WebNovis. Come posso aiutare il tuo business oggi?";
+        }
+        
+        return "Grazie per il messaggio! 😊\nPer darti una risposta precisa, ti consiglio di scriverci a webnovis.info@gmail.com. Il nostro team ti risponderà in giornata!";
+    }
+
+    function showTyping() {
+        state.isTyping = true;
         const typingDiv = document.createElement('div');
-        typingDiv.className = 'chat-message bot-message typing-indicator';
         typingDiv.id = 'typingIndicator';
+        typingDiv.className = 'chat-message bot-message typing-indicator';
         typingDiv.innerHTML = `
             <div class="message-avatar">WN</div>
             <div class="message-content">
@@ -157,139 +269,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="typing-dot"></div>
             </div>
         `;
-        chatMessages.appendChild(typingDiv);
+        elements.messages.appendChild(typingDiv);
         scrollToBottom();
     }
 
-    function hideTypingIndicator() {
-        const typingIndicator = document.getElementById('typingIndicator');
-        if (typingIndicator) {
-            typingIndicator.remove();
-        }
+    function hideTyping() {
+        state.isTyping = false;
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
     }
 
     function scrollToBottom() {
-        if (chatMessages) {
-            requestAnimationFrame(() => {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
-        }
-    }
-
-    // Conversation history per ChatGPT
-    let conversationHistory = [];
-    
-    // Configurazione Endpoint API
-    // Quando sei in locale usa localhost, quando sei online userà l'URL di produzione
-    const PRODUCTION_API_URL = 'https://webnovis-chat.onrender.com/api/chat'; // ⚠️ DA AGGIORNARE DOPO IL DEPLOY SU RENDER
-    
-    const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000/api/chat'
-        : PRODUCTION_API_URL;
-
-    async function getBotResponse(message) {
-        try {
-            console.log('🔄 Sending message to:', API_ENDPOINT);
-            
-            // Prova a chiamare il backend con ChatGPT
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: message,
-                    conversationHistory: conversationHistory
-                })
-            });
-
-            console.log('📥 Response status:', response.status);
-
-            if (!response.ok) {
-                throw new Error(`Backend error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log('✅ Received response from backend');
-            
-            // Aggiorna la cronologia della conversazione
-            conversationHistory.push(
-                { role: 'user', content: message },
-                { role: 'assistant', content: data.response }
-            );
-
-            // Mantieni solo gli ultimi 10 scambi (20 messaggi) per non superare i limiti
-            if (conversationHistory.length > 20) {
-                conversationHistory = conversationHistory.slice(-20);
-            }
-
-            return data.response || data.fallback;
-
-        } catch (error) {
-            console.error('❌ Error calling backend:', error);
-            console.warn('⚠️ ChatGPT non disponibile, uso risposte locali');
-            // Fallback a risposte locali
-            return getLocalResponse(message);
-        }
-    }
-
-    // Risposte locali di fallback (quando il backend non è disponibile)
-    function getLocalResponse(message) {
-        const lowerMessage = message.toLowerCase();
-        
-        if (lowerMessage.includes('servizi') || lowerMessage.includes('info')) {
-            return 'Offriamo tre servizi principali: 🌐 Web Development, 🎨 Graphic Design e 📱 Social Media Management. Quale ti interessa di più?';
-        } else if (lowerMessage.includes('preventivo') || lowerMessage.includes('prezzo') || lowerMessage.includes('costo')) {
-            return 'Perfetto! Per un preventivo personalizzato, ti invito a compilare il form di contatto o scriverci a webnovis.info@gmail.com. Ogni progetto è unico e vogliamo offrirti la soluzione migliore! 💼';
-        } else if (lowerMessage.includes('supporto') || lowerMessage.includes('aiuto') || lowerMessage.includes('problema')) {
-            return 'Siamo qui per aiutarti! 🆘 Puoi contattarci via email a webnovis.info@gmail.com o compilare il form. Il nostro team è sempre disponibile!';
-        } else if (lowerMessage.includes('web') || lowerMessage.includes('sito')) {
-            return 'Il nostro servizio Web Development include: siti responsive, e-commerce, ottimizzazione SEO e performance ultra-veloci. Vuoi saperne di più? 🚀';
-        } else if (lowerMessage.includes('design') || lowerMessage.includes('grafica') || lowerMessage.includes('logo')) {
-            return 'Creiamo identità visive complete: logo, branding, materiale pubblicitario e molto altro. Il design è la nostra passione! ✨';
-        } else if (lowerMessage.includes('social') || lowerMessage.includes('instagram') || lowerMessage.includes('facebook')) {
-            return 'Gestiamo i tuoi social media con strategie mirate, contenuti di qualità e campagne pubblicitarie ottimizzate. Facciamo crescere il tuo brand! 📱';
-        } else if (lowerMessage.includes('contatto') || lowerMessage.includes('email') || lowerMessage.includes('telefono')) {
-            return 'Puoi contattarci via email a webnovis.info@gmail.com o compilare il form nella sezione contatti. Rispondiamo sempre entro 24 ore! 📧';
-        } else if (lowerMessage.includes('ciao') || lowerMessage.includes('salve') || lowerMessage.includes('buongiorno')) {
-            return 'Ciao! 👋 Benvenuto su WebNovis. Come posso aiutarti oggi?';
-        } else if (lowerMessage.includes('grazie')) {
-            return 'Prego! È stato un piacere aiutarti. Se hai altre domande, sono qui! 😊';
-        } else {
-            return 'Interessante! Per informazioni più dettagliate, ti consiglio di contattarci direttamente. Il nostro team sarà felice di rispondere a tutte le tue domande! 💬';
-        }
-    }
-
-    // Keep-Alive System per Render.com
-    // Mantiene il server attivo simulando traffico quando l'utente è sul sito
-    const KEEPALIVE_INTERVAL = 5 * 60 * 1000; // 5 minuti
-    
-    // URL di base per il health check
-    const BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000'
-        : 'https://webnovis-chat.onrender.com'; // Deve corrispondere a PRODUCTION_API_URL base
-
-    setInterval(() => {
-        // Esegui il ping solo se non siamo in locale (o per test se vuoi)
-        if (window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
-            console.log('💓 Sending keep-alive heartbeat...');
-            fetch(`${BASE_URL}/api/health`)
-                .then(res => {
-                    if(res.ok) console.log('💓 Heartbeat success');
-                    else console.warn('💔 Heartbeat returned status:', res.status);
-                })
-                .catch(err => {
-                    // Silenzioso per l'utente, utile per debug
-                    console.warn('💔 Heartbeat failed (server might be sleeping):', err);
-                });
-        }
-    }, KEEPALIVE_INTERVAL);
-
-    // Ping immediato all'avvio per svegliare il server se necessario
-    if (window.location.hostname !== 'localhost' && window.location.protocol !== 'file:') {
-        setTimeout(() => {
-            fetch(`${BASE_URL}/api/health`).catch(() => {});
-        }, 2000);
+        requestAnimationFrame(() => {
+            elements.messages.scrollTop = elements.messages.scrollHeight;
+        });
     }
 
     function escapeHtml(text) {
@@ -298,28 +291,26 @@ document.addEventListener('DOMContentLoaded', function() {
         return div.innerHTML;
     }
 
-    // Close chat when clicking outside
-    document.addEventListener('click', (e) => {
-        if (chatPopup.classList.contains('active')) {
-            if (!e.target.closest('.chat-popup') && !e.target.closest('#chatButton') && !e.target.closest('.fab-container')) {
-                chatPopup.classList.remove('active');
-            }
-        }
-    });
-
-    // Show notification after 5 seconds
-    setTimeout(() => {
-        if (fabNotification && !chatPopup.classList.contains('active')) {
-            fabNotification.style.display = 'flex';
-        }
-    }, 5000);
-
-    console.log('✅ Chat system initialized successfully!');
-    console.log('🌐 Current URL:', window.location.href);
+    // --- INITIALIZATION ---
     
-    if (window.location.protocol === 'file:') {
-        console.warn('⚠️ ATTENZIONE: Stai aprendo il file direttamente!');
-        console.warn('📌 Per usare ChatGPT, apri: http://localhost:3000');
-        console.warn('💡 Il server deve essere avviato con: npm start');
+    // Show bubble after delay if not interacted
+    setTimeout(() => {
+        if (!state.isOpen && !state.hasInteracted && elements.bubble) {
+            elements.bubble.classList.add('visible');
+        }
+    }, 3000);
+
+    // Keep-Alive Heartbeat
+    setInterval(() => {
+        if (window.location.hostname !== 'localhost') {
+            fetch(CHAT_CONFIG.healthCheckUrl).catch(() => {});
+        }
+    }, CHAT_CONFIG.keepAliveInterval);
+
+    // Wake up server immediately on load
+    if (window.location.hostname !== 'localhost') {
+        fetch(CHAT_CONFIG.healthCheckUrl).catch(() => {});
     }
+
+    console.log('✅ WebNovis Chat System Ready');
 });
