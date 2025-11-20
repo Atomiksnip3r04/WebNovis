@@ -65,7 +65,7 @@ if (typeof Lenis !== 'undefined') {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const target = document.querySelector(targetId);
-            
+
             if (target) {
                 // Chiudi menu mobile se aperto
                 const navMenu = document.getElementById('navMenu');
@@ -133,15 +133,41 @@ animatedElements.forEach(el => {
     observer.observe(el);
 });
 
-// Parallax effect for gradient orbs
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const orbs = document.querySelectorAll('.gradient-orb');
+// Parallax effect for gradient orbs - OPTIMIZED using requestAnimationFrame
+let isScrolling = false;
 
-    orbs.forEach((orb, index) => {
-        const speed = 0.5 + (index * 0.2);
-        orb.style.transform = `translateY(${scrolled * speed}px)`;
-    });
+window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.gradient-orb');
+            
+            orbs.forEach((orb, index) => {
+                const speed = 0.5 + (index * 0.2);
+                orb.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            // Also handle background color change here to avoid multiple listeners
+            const bodySections = document.querySelectorAll('section');
+            const body = document.body;
+            
+            bodySections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                // Check if section is in the middle of the viewport
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    const sectionClass = section.className;
+                    if (sectionClass.includes('hero')) {
+                        body.style.background = 'var(--dark)';
+                    } else if (sectionClass.includes('triade')) {
+                        body.style.background = 'linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%)';
+                    }
+                }
+            });
+
+            isScrolling = false;
+        });
+        isScrolling = true;
+    }
 });
 
 // Form submission handler - Rimosso, gestito più avanti con validazione avanzata
@@ -877,7 +903,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Dynamic Background Color Change on Scroll
+// Dynamic Background Color Change on Scroll - RIMOSSO (Integrato sopra per performance)
+/*
 const bodySections = document.querySelectorAll('section');
 const body = document.body;
 
@@ -896,6 +923,7 @@ const colorObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 bodySections.forEach(section => colorObserver.observe(section));
+*/
 
 // Text Typing Effect for Hero
 const createTypingEffect = (element, text, speed = 100) => {

@@ -1459,13 +1459,17 @@ section {
         left: -100%;
         width: 100%;
         height: calc(100vh - 80px);
-        background: var(--dark); /* Sfondo solido scuro */
+        background: var(--dark);
+        /* Sfondo solido scuro */
         flex-direction: column;
         justify-content: flex-start;
         padding: 3rem 2rem;
-        transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Transizione più fluida */
-        z-index: 1002; /* Z-index alto */
-        overflow-y: auto; /* Permette scroll se il menu è lungo */
+        transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Transizione più fluida */
+        z-index: 1002;
+        /* Z-index alto */
+        overflow-y: auto;
+        /* Permette scroll se il menu è lungo */
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
@@ -1487,18 +1491,36 @@ section {
     }
 
     /* Ritardo a cascata per gli elementi del menu */
-    .nav-menu.active li:nth-child(1) { transition-delay: 0.1s; }
-    .nav-menu.active li:nth-child(2) { transition-delay: 0.15s; }
-    .nav-menu.active li:nth-child(3) { transition-delay: 0.2s; }
-    .nav-menu.active li:nth-child(4) { transition-delay: 0.25s; }
-    .nav-menu.active li:nth-child(5) { transition-delay: 0.3s; }
-    .nav-menu.active li:nth-child(6) { transition-delay: 0.35s; }
+    .nav-menu.active li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .nav-menu.active li:nth-child(2) {
+        transition-delay: 0.15s;
+    }
+
+    .nav-menu.active li:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    .nav-menu.active li:nth-child(4) {
+        transition-delay: 0.25s;
+    }
+
+    .nav-menu.active li:nth-child(5) {
+        transition-delay: 0.3s;
+    }
+
+    .nav-menu.active li:nth-child(6) {
+        transition-delay: 0.35s;
+    }
 
     .nav-link {
         display: block;
         padding: 1rem 0;
-        font-size: 1.5rem; /* Testo più grande */
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 1.5rem;
+        /* Testo più grande */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .nav-cta {
@@ -2432,7 +2454,7 @@ button:hover,
 }
 
 .testimonial-text {
-    color: var(--gray-light);
+    color: #e5e7eb;
     line-height: 1.8;
     margin-bottom: 2rem;
     font-size: 1.05rem;
@@ -2466,8 +2488,8 @@ button:hover,
 
 .author-role {
     font-size: 0.9rem;
-    color: #9a9a9a;
-    /* Grigio più chiaro per contrasto WCAG AA */
+    color: #d1d5db;
+    /* Grigio più chiaro per contrasto WCAG AA su sfondo scuro */
 }
 
 .testimonial-glow {
@@ -2759,15 +2781,13 @@ button:hover,
 
     0%,
     100% {
-        box-shadow:
-            0 8px 24px rgba(99, 102, 241, 0.4),
-            0 0 0 0 rgba(99, 102, 241, 0.4);
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
     }
 
     50% {
-        box-shadow:
-            0 12px 32px rgba(99, 102, 241, 0.6),
-            0 0 0 8px rgba(99, 102, 241, 0.1);
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba(99, 102, 241, 0.6);
     }
 }
 
